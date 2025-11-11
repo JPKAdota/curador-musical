@@ -1,0 +1,31 @@
+PROMPTS PARA: TESTE CORPORATIVO
+==================================================
+
+🎵 SUNO AI (suno.com)
+------------------------------
+[Verse]
+TesteCorp leading the way, excellence every day, trust that's here to stay
+
+[Chorus]
+TesteCorp leading the way, excellence every day, trust that's here to stay
+
+Style: upbeat corporate pop song with guitar and piano, clear vocals, lyrics: TesteCorp leading the way, excellence every day, trust that's here to stay
+
+🎵 UDIO (udio.com)
+------------------------------
+upbeat corporate pop song with guitar and piano, clear vocals, lyrics: TesteCorp leading the way, excellence every day, trust that's here to stay, high quality, professional production
+
+🎵 ELEVENLABS (elevenlabs.io)
+------------------------------
+upbeat corporate pop song with guitar and piano, clear vocals, lyrics: TesteCorp leading the way, excellence every day, trust that's here to stay
+
+🎤 LETRA
+------------------------------
+TesteCorp leading the way, excellence every day, trust that's here to stay
+
+📋 INSTRUÇÕES
+------------------------------
+1. Copie o prompt da plataforma desejada
+2. Cole na IA musical escolhida
+3. Ajuste parâmetros se necessário
+4. Gere sua música!
