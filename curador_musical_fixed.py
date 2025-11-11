@@ -13,11 +13,11 @@ from datetime import datetime
 
 # Importar gerador musical local
 try:
-    from gerador_simples import GeradorMusicalSimples
+    from gerador_audio import GeradorAudioSimples
     GERADOR_DISPONIVEL = True
 except ImportError:
     GERADOR_DISPONIVEL = False
-    print("Gerador simples não disponível")
+    print("Gerador de áudio não disponível")
 
 # Carregar variáveis do .env
 load_dotenv()
@@ -76,8 +76,8 @@ class CuradorMusical:
         # Inicializar gerador local se disponível
         if GERADOR_DISPONIVEL:
             try:
-                self.gerador_local = GeradorMusicalSimples()
-                print("Gerador simples inicializado")
+                self.gerador_local = GeradorAudioSimples()
+                print("Gerador de áudio inicializado")
             except Exception as e:
                 print(f"Erro ao inicializar gerador local: {e}")
 
@@ -387,30 +387,26 @@ Crie uma jornada emocional que represente {faixa.descricao.lower()}
     def gerar_musica(self, prompt: str, titulo: str, duracao: int = 180, com_vocal: bool = False, letra: str = None) -> Optional[str]:
         """Gera música usando MusicGen+Bark (gratuito) ou ElevenLabs (pago)"""
         
-        # Tentar primeiro com gerador simples (gratuito)
+        # Tentar primeiro com gerador de áudio (gratuito)
         if GERADOR_DISPONIVEL:
             try:
-                print(f"Gerando prompts otimizados para '{titulo}'...")
-                gerador = GeradorMusicalSimples()
+                print(f"Gerando áudio para '{titulo}'...")
+                gerador = GeradorAudioSimples()
                 
-                # Extrair marca do título ou prompt
-                marca = titulo.split()[0] if titulo else "Marca"
-                
-                # Gerar prompts para múltiplas plataformas
+                # Gerar música real
                 resultado = gerador.gerar_musica_completa(
-                    prompt_instrumental=prompt,
+                    prompt=prompt,
                     titulo=titulo,
-                    com_vocal=com_vocal,
-                    marca=marca
+                    duracao=min(duracao, 30)  # Máximo 30s
                 )
                 
                 if resultado:
-                    print(f"Prompts gerados para '{titulo}': {resultado}")
+                    print(f"Áudio gerado para '{titulo}': {resultado}")
                     return resultado
                 else:
-                    print("Falha no gerador simples, tentando ElevenLabs...")
+                    print("Falha no gerador de áudio, tentando ElevenLabs...")
             except Exception as e:
-                print(f"Erro no gerador simples: {e}, tentando ElevenLabs...")
+                print(f"Erro no gerador de áudio: {e}, tentando ElevenLabs...")
         
         # Fallback para ElevenLabs (pago)
         return self._gerar_com_elevenlabs(prompt, titulo, duracao)
@@ -598,5 +594,5 @@ Crie uma jornada emocional que represente {faixa.descricao.lower()}
             "prompts_criacao": prompts,
             "resumo_executivo": f"Curadoria musical para {marca.nome} - Álbum {album.titulo} com {len(album.faixas)} faixas.",
             "gerador_disponivel": GERADOR_DISPONIVEL,
-            "status_geracao": "Prompts otimizados (gratuito)" if GERADOR_DISPONIVEL else "Apenas prompts básicos"
+            "status_geracao": "Áudio procedural (gratuito)" if GERADOR_DISPONIVEL else "Apenas prompts básicos"
         }
