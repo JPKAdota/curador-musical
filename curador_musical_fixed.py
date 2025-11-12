@@ -11,13 +11,20 @@ from dataclasses import dataclass
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
-# Importar gerador musical local
+# Importar geradores musicais
+try:
+    from gerador_musicgen import GeradorMusicGen
+    MUSICGEN_DISPONIVEL = True
+    print("MusicGen disponível")
+except ImportError:
+    MUSICGEN_DISPONIVEL = False
+    print("MusicGen não disponível")
+
 try:
     from gerador_audio import GeradorAudioSimples
-    GERADOR_DISPONIVEL = True
+    GERADOR_SIMPLES_DISPONIVEL = True
 except ImportError:
-    GERADOR_DISPONIVEL = False
-    print("Gerador de áudio não disponível")
+    GERADOR_SIMPLES_DISPONIVEL = False
 
 # Carregar variáveis do .env
 load_dotenv()
@@ -73,13 +80,23 @@ class CuradorMusical:
             self.music_api_key = "4d3ee3668207b03ab82c46e171a0f1081470d988e67d5e8993925323724991cf"
         self.music_client = requests if requests else None
         
-        # Inicializar gerador local se disponível
-        if GERADOR_DISPONIVEL:
+        # Inicializar geradores
+        self.musicgen = None
+        self.gerador_simples = None
+        
+        if MUSICGEN_DISPONIVEL:
             try:
-                self.gerador_local = GeradorAudioSimples()
-                print("Gerador de áudio inicializado")
+                self.musicgen = GeradorMusicGen()
+                print("MusicGen inicializado")
             except Exception as e:
-                print(f"Erro ao inicializar gerador local: {e}")
+                print(f"Erro ao inicializar MusicGen: {e}")
+        
+        if GERADOR_SIMPLES_DISPONIVEL:
+            try:
+                self.gerador_simples = GeradorAudioSimples()
+                print("Gerador simples inicializado")
+            except Exception as e:
+                print(f"Erro ao inicializar gerador simples: {e}")
 
     def analisar_marca(self, nome_marca: str, setor: str) -> IdentidadeMarca:
         """Analisa a marca automaticamente usando IA"""
@@ -387,26 +404,35 @@ Crie uma jornada emocional que represente {faixa.descricao.lower()}
     def gerar_musica(self, prompt: str, titulo: str, duracao: int = 180, com_vocal: bool = False, letra: str = None) -> Optional[str]:
         """Gera música usando MusicGen+Bark (gratuito) ou ElevenLabs (pago)"""
         
-        # Tentar primeiro com gerador de áudio (gratuito)
-        if GERADOR_DISPONIVEL:
+        # Tentar primeiro com MusicGen (melhor qualidade)
+        if self.musicgen:
             try:
-                print(f"Gerando áudio para '{titulo}'...")
-                gerador = GeradorAudioSimples()
-                
-                # Gerar música real
-                resultado = gerador.gerar_musica_completa(
+                resultado = self.musicgen.gerar_musica(
                     prompt=prompt,
                     titulo=titulo,
-                    duracao=min(duracao, 30)  # Máximo 30s
+                    duracao=min(duracao, 30)
                 )
-                
                 if resultado:
-                    print(f"Áudio gerado para '{titulo}': {resultado}")
                     return resultado
                 else:
-                    print("Falha no gerador de áudio, tentando ElevenLabs...")
+                    print("Falha no MusicGen, tentando gerador simples...")
             except Exception as e:
-                print(f"Erro no gerador de áudio: {e}, tentando ElevenLabs...")
+                print(f"Erro no MusicGen: {e}, tentando gerador simples...")
+        
+        # Fallback para gerador simples
+        if self.gerador_simples:
+            try:
+                resultado = self.gerador_simples.gerar_musica_completa(
+                    prompt=prompt,
+                    titulo=titulo,
+                    duracao=min(duracao, 30)
+                )
+                if resultado:
+                    return resultado
+                else:
+                    print("Falha no gerador simples, tentando ElevenLabs...")
+            except Exception as e:
+                print(f"Erro no gerador simples: {e}, tentando ElevenLabs...")
         
         # Fallback para ElevenLabs (pago)
         return self._gerar_com_elevenlabs(prompt, titulo, duracao)
@@ -593,6 +619,7 @@ Crie uma jornada emocional que represente {faixa.descricao.lower()}
             "album": album_dict,
             "prompts_criacao": prompts,
             "resumo_executivo": f"Curadoria musical para {marca.nome} - Álbum {album.titulo} com {len(album.faixas)} faixas.",
-            "gerador_disponivel": GERADOR_DISPONIVEL,
-            "status_geracao": "Áudio procedural (gratuito)" if GERADOR_DISPONIVEL else "Apenas prompts básicos"
+            "musicgen_disponivel": MUSICGEN_DISPONIVEL,
+            "gerador_simples_disponivel": GERADOR_SIMPLES_DISPONIVEL,
+            "status_geracao": "MusicGen (IA real)" if MUSICGEN_DISPONIVEL else "Áudio sintético" if GERADOR_SIMPLES_DISPONIVEL else "Apenas prompts"
         }

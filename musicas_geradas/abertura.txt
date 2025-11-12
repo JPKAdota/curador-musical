@@ -1,0 +1,83 @@
+Prompt para música 'Abertura':
+
+Excelente! Como especialista em prompts para IAs musicais, entendo a necessidade de detalhamento e especificidade para traduzir a essência de uma marca em áudio. Vamos criar um prompt completo e único para a "Abertura" da Nubank.
+
+---
+
+**PROMPT PARA IA MUSICAL: ABERTURA NUBANK - "ESSÊNCIA PÚRPURA"**
+
+**Objetivo:** Gerar uma peça musical curta e envolvente, de 20-25 segundos, que sirva como a "Abertura" da marca Nubank para conteúdos educacionais financeiros. A música deve encapsular os valores de inovação, fluidez, autonomia e transparência, inspirando o público a uma jornada financeira descomplicada e empoderadora.
+
+---
+
+**1. Especificações Técnicas Específicas:**
+
+*   **Duração:** 0:22 (vinte e dois segundos)
+*   **BPM (Batidas por Minuto):** 108 BPM (Andamento moderado, fluído, nem lento demais para ser estático, nem rápido demais para ser agitado. Reflete o "fluxo" de dados e decisões claras).
+*   **Tonalidade:** D Maior (Apresenta um brilho e uma clareza que sugerem otimismo e possibilidades, sem ser excessivamente "alegre", mantendo uma sofisticação digital).
+*   **Estrutura:**
+    *   **0:00 - 0:03 (Introdução Atmosférica):** Pads evolutivos e texturas ambientais.
+    *   **0:03 - 0:15 (Desenvolvimento do Tema Principal):** Entrada da melodia principal (marimba/synth), base rítmica pulsante e plucks harmoniosos.
+    *   **0:15 - 0:20 (Expansão e Vocalize):** Camadas adicionais de sintetizadores e entrada sutil dos vocalizes etéreos.
+    *   **0:20 - 0:22 (Finalização e Fade Out):** Resolução harmônica com decaimento suave dos pads e vocalizes, deixando uma sensação de continuidade e leveza.
+
+**2. Instrumentação Detalhada e Criativa (Baseado na Paleta Sonora):**
+
+*   **Eletrônicos:**
+    *   **Pad Principal (0:00-0:22):** Um sintetizador Wavetable com timbre "clean-tech" e "shimmering", criando pads atmosféricos evolutivos. Pense em um som que "respira", com leves modulações de filtro e um reverbe amplo, porém cristalino, sem embolar. Deve ser a cama harmônica que sustenta toda a peça.
+    *   **Melodia Secundária/Arpejos (0:05-0:18):** Um sintetizador FM com um timbre "glassy" e pontiagudo, usado para arpejos ou uma linha melódica de fundo muito discreta, que flutua acima do pad e da melodia principal de marimba. Adicionar um delay sincronizado ao BPM.
+    *   **Baixo Sub-harmônico (0:03-0:20):** Um sintetizador FM muito limpo, gerando um baixo sub-harmônico discreto, apenas para dar corpo e profundidade, sem agredir ou se destacar. Deve ser quase imperceptível, mas sentir sua presença.
+*   **Orgânicos (Processados Digitalmente):**
+    *   **Melodia Principal (0:03-0:15):** Notas de marimba ou xilofone processadas digitalmente. O som deve ter a clareza percussiva do orgânico, mas com um toque etéreo e lúdico. Aplicar um reverbe curto e um delay discreto para criar uma sensação de "digitalização" e leveza. A melodia deve ser ascendente e convidativa.
+    *   **Plucks Harmônicos (0:07-0:18):** Plucks de guitarra elétrica (com captadores single-coil para clareza) ou baixo, altamente processados com um reverbe longo e um delay sutil. Não devem soar como "guitarra", mas sim como elementos percussivos harmônicos que preenchem espaços, quase como gotas digitais cintilantes.
+*   **Rítmicos (Minimalistas e Precisos):**
+    *   **Batida Eletrônica Pulsante (0:05-0:20):** Um kick eletrônico extremamente suave e discreto, que marca o pulso em 108 BPM (talvez apenas a cada 4 batidas). Não deve ter cauda longa ou punch agressivo.
+    *   **Cues Digitais (0:03, 0:08, 0:12):** Clicks & Snaps digitais, com timbres de "UI/UX" (User Interface/User Experience) limpos, para marcar o início de frases ou pequenas transições rítmicas. Pense em "confirm click" ou "notification snap" premium.
+    *   **Hi-Hats Sequenciados Leves (0:05-0:20):** Hi-hats digitais muito curtos e com volume baixo, sequenciados para criar um fluxo contínuo e sutil, sem se tornar uma batida "dance". Devem ser mais uma textura rítmica do que um instrumento principal.
+
+**3. Direção Vocal Específica:**
+
+*   **Vocalizes Etéreos (0:15-0:22):** Vozes femininas (ou uma voz neutra de timbre suave) sem letra, usadas como vocalizes harmonizados em "ooohs" ou "aaahs" abertos. Devem ser tratados com reverbe e delay para soarem como mais uma camada atmosférica e calorosa, não como uma voz solo. O objetivo é adicionar um toque humano e convidativo, inspirando confiança e serenidade, sem distrair. Devem subir suavemente em pitch na finalização, como um suspiro de otimismo.
+
+**4. Mood e Atmosfera Únicos:**
+
+*   **Sereno e Cristalino:** Uma sensação de clareza e paz, como o céu limpo.
+*   **Inspirador e Otimista:** Transmite esperança e a promessa de novas possibilidades e controle.
+*   **Tecnológico e Fluido:** Combinação perfeita entre a inovação digital e a suavidade da experiência de usuário.
+*   **Acolhedor e Convidativo:** Sente-se como um convite amigável para explorar algo novo e melhor.
+*   **Empoderador e Descomplicado:** A música deve remover qualquer sensação de ansiedade financeira, substituindo-a por uma sensação de domínio e facilidade.
+*   **Paleta Emocional:** Confiança, tranquilidade, clareza, modernidade, sutileza. Pense na sensação de abrir um aplicativo intuitivo, onde tudo flui sem esforço e suas finanças estão sob controle.
+
+**5. Referências Artísticas Relevantes:**
+
+*   **Tycho:** Para a estética dos pads sintetizados, a sensação de "driving" melódico sutil e a atmosfera etérea e uplifiting. (Ex: "Awake", "Dive").
+*   **Olafur Arnalds (mais nas suas peças eletrônicas/ambientais):** Para a delicadeza dos elementos orgânicos processados (como o piano em algumas de suas faixas), a pureza das melodias e a forma como a música evoca emoção sem ser explícita. (Ex: "Woven Song", ou colaborações com Nils Frahm).
+*   **Sound Design de Interfaces Apple (macOS/iOS):** Para a precisão e a "crispness" dos clicks, snaps e outros "audio cues" digitais, que são reconhecidamente modernos e satisfatórios.
+*   **C418 (Minecraft, mais suas faixas ambientais):** Para a forma como ele cria atmosferas relaxantes e um senso de descoberta com elementos eletrônicos e melodias simples e cativantes.
+
+**6. Parâmetros para IA Musical:**
+
+*   **Prioridade Harmônica:** Foco em progressões diatônicas em D Maior, com voicings abertos e leves suspensões para criar uma sensação de "irresolução resolvida" (sentimento de continuidade e expansão).
+*   **Ênfase Melódica:** A melodia principal da marimba/xilofone deve ser clara, memorável e com uma sensação de "pergunta e resposta" suave, ascendendo para um ponto culminante antes de se dissolver.
+*   **Dinâmica:** Construção sutil do volume, partindo de um sussurro no início e atingindo um nível médio-alto de clareza, sem picos agressivos. A curva de volume deve ser suave e contínua.
+*   **Reverbe/Delay:** Uso abundante de reverbe cristalino e delays sincronizados, mas com muita parcimônia para evitar lama sonora. Deve-se criar um senso de espaço e profundidade.
+*   **Estéreo:** Utilizar o campo estéreo amplamente para criar imersão e separar os elementos, dando a sensação de um ambiente sonoro expansivo. Os plucks e arpejos podem ter panning sutil.
+*   **Mixagem e Masterização:** Buscar uma sonoridade "limpa", transparente e polida. Nenhum instrumento deve lutar por espaço. O resultado final deve soar "arejado" e moderno, com baixos presentes mas discretos e agudos cintilantes sem serem estridentes.
+*   **Evitar:** Bateria pesada, guitarras distorcidas, melodias complexas ou dissonantes, vocais com letra, andamento acelerado ou frenético.
+
+---
+
+**Resumo da Intenção:**
+A "Abertura Nubank - Essência Púrpura" deve ser uma paisagem sonora que não apenas anuncia a marca, mas já imerge o ouvinte na sua filosofia: clareza, fluidez e um caminho inspirador para a autonomia financeira, tudo entregue com a elegância e a inovação de um produto digital bem projetado. É a trilha sonora para o "clique" que muda sua vida financeira para melhor.
+
+==================================================
+INSTRUÇÕES DE USO:
+1. Copie este prompt
+2. Cole em uma IA musical como:
+   - Suno AI (suno.com)
+   - Udio (udio.com)
+   - ElevenLabs Music (elevenlabs.io)
+   - MusicGen (huggingface.co)
+   - OU instale MusicGen+Bark: pip install -r requirements.txt
+3. Configure sua própria API key ElevenLabs
+4. Ajuste os parâmetros conforme necessário
