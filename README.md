@@ -1,127 +1,136 @@
-# 🎵 Curador Musical IA
+# 🎵 Curador Musical Inteligente + Player Web (MVP)
 
-Sistema inteligente para criação de identidade sonora e álbuns conceituais para marcas usando IA.
+Sistema completo de curadoria musical inteligente com player web corporativo.
 
 ## 🚀 Funcionalidades
 
-- **Análise Automática de Marca**: IA analisa a marca e cria perfil musical único
-- **Mapeamento de Público**: Identifica público-alvo e preferências musicais
-- **Álbum Conceitual**: Gera álbum completo com 5 faixas temáticas
-- **Prompts Inteligentes**: Cria prompts detalhados para geração musical
-- **Geração de Música**: Integração com ElevenLabs Music API
-- **Interface Web**: Interface amigável com Streamlit
+- **Análise Inteligente**: Analisa empresa apenas pelo nome
+- **Curadoria Automática**: Gera playlist de 400 músicas
+- **Player Web**: Interface responsiva com controles completos
+- **Músicas Livres**: 100% Creative Commons
+- **Logs de Reprodução**: Registra estatísticas de uso
+- **Atualização Dinâmica**: Renova 15-25% da playlist
 
-## 📋 Pré-requisitos
+## 🛠️ Tecnologias
 
-- Python 3.8+
-- Conta Google (para Gemini API)
-- Conta ElevenLabs (para Music API)
+- **Frontend**: Next.js 14 + React
+- **Styling**: Tailwind CSS
+- **API**: Serverless Functions
+- **Audio**: HTML5 Audio API
+- **Deploy**: Vercel (gratuito)
 
-## ⚡ Instalação Rápida
+## 📦 Instalação
 
-1. **Clone/baixe o projeto**
-2. **Execute o setup automático**:
-   ```bash
-   python setup.py
-   ```
+```bash
+# Instalar dependências
+npm install
 
-3. **Configure as API keys no arquivo `.env`**:
-   ```env
-   GEMINI_API_KEY=sua_chave_gemini_aqui
-   ELEVENLABS_API_KEY=sua_chave_elevenlabs_aqui
-   ```
+# Executar em desenvolvimento
+npm run dev
 
-4. **Execute a aplicação**:
-   ```bash
-   streamlit run interface_curador.py
-   ```
-
-## 🔑 Configuração das APIs
-
-### Google Gemini API
-1. Acesse: https://makersuite.google.com/app/apikey
-2. Crie uma nova API key
-3. Cole no arquivo `.env`
-
-### ElevenLabs Music API
-1. Acesse: https://elevenlabs.io/app/settings/api-keys
-2. Crie uma nova API key
-3. Cole no arquivo `.env`
-
-**⚠️ Importante**: A ElevenLabs Music API é paga. Verifique os preços em: https://elevenlabs.io/pricing
-
-## 🎯 Como Usar
-
-1. **Abra a aplicação** no navegador (http://localhost:8501)
-2. **Insira o nome da marca** e selecione o setor
-3. **Clique em "Gerar Curadoria"** para análise completa
-4. **Revise os resultados**:
-   - Identidade sonora da marca
-   - Perfil do público-alvo
-   - Álbum conceitual com 5 faixas
-5. **Gere as músicas** clicando em "Gerar Músicas"
-6. **Baixe os resultados** em JSON ou TXT
-
-## 📁 Estrutura do Projeto
-
-```
-AI Musica/
-├── curador_musical_fixed.py    # Lógica principal
-├── interface_curador.py        # Interface Streamlit
-├── setup.py                   # Script de configuração
-├── requirements.txt           # Dependências
-├── .env                      # Variáveis de ambiente
-├── .env.example             # Exemplo de configuração
-└── musicas_geradas/         # Músicas e prompts gerados
+# Build para produção
+npm run build
 ```
 
-## 🎼 Exemplo de Uso
+## 🌐 Deploy na Vercel
 
-### Entrada:
-- **Marca**: Natura
-- **Setor**: Cosméticos
+1. Conecte seu repositório GitHub à Vercel
+2. Configure as variáveis de ambiente (se necessário)
+3. Deploy automático a cada push
 
-### Saída:
-- **Identidade Sonora**: Sustentável, natural, brasileira
-- **Público**: 25-40 anos, classe A/B, consciente
-- **Álbum**: "Essência by Natura" com 5 faixas
-- **Músicas**: Arquivos MP3 gerados pela IA
+```bash
+# Ou via CLI
+npx vercel --prod
+```
 
-## 🔧 Solução de Problemas
+## 📋 Estrutura da API
 
-### Erro: "API key não configurada"
-- Verifique se o arquivo `.env` existe
-- Confirme se as chaves estão corretas
+### GET /api/curate?company=NomeEmpresa
+Retorna curadoria completa em JSON:
+```json
+{
+  "metadata": {
+    "company": "Café Central",
+    "total_tracks": 400
+  },
+  "profile": {
+    "business_type": "cafe",
+    "vibe": "cozy",
+    "primary_genres": ["Acoustic", "Folk", "Jazz"]
+  },
+  "playlist": {
+    "morning": [...],
+    "afternoon": [...], 
+    "evening": [...]
+  }
+}
+```
 
-### Erro: "Biblioteca elevenlabs não instalada"
-- Execute: `pip install elevenlabs`
+### POST /api/playlog
+Registra logs de reprodução:
+```json
+{
+  "company": "Café Central",
+  "track_id": "1",
+  "started_at": "2024-01-01T10:00:00Z",
+  "ended_at": "2024-01-01T10:03:30Z"
+}
+```
 
-### Erro: "bad_prompt" (ElevenLabs)
-- O prompt contém material protegido por direitos autorais
-- A IA tentará automaticamente uma versão alternativa
+## 🎵 Músicas de Exemplo
 
-### Erro: "rate_limit"
-- Você atingiu o limite de requisições
-- Aguarde alguns minutos ou upgrade sua conta
+10 faixas Creative Commons da Bensound:
+- Acoustic Breeze
+- Happy Rock  
+- Jazz Comedy
+- Relaxing
+- Sunny
+- Creative Minds
+- Tenderness
+- Ukulele
+- Energy
+- Piano Moment
 
-## 💡 Dicas de Uso
+## 🔄 Como Funciona
 
-1. **Seja específico** com o nome da marca para melhor análise
-2. **Use o feedback** para melhorar prompts específicos
-3. **Teste diferentes setores** para ver variações criativas
-4. **Salve os JSONs** para reutilizar configurações
+1. **Input**: Nome da empresa
+2. **Análise**: IA identifica tipo de negócio e vibe
+3. **Curadoria**: Seleciona músicas por gênero e horário
+4. **Player**: Interface web com controles completos
+5. **Logs**: Registra estatísticas de reprodução
 
-## 🆘 Suporte
+## 📱 Interface Responsiva
 
-Para problemas técnicos:
-1. Verifique se todas as dependências estão instaladas
-2. Confirme se as API keys estão válidas
-3. Consulte os logs de erro na interface
+- **Desktop**: Player completo com próximas músicas
+- **Mobile**: Interface otimizada para toque
+- **Controles**: Play/Pause, Skip, Progress Bar
+- **Info**: Música atual, artista, gênero
+
+## 🎯 Casos de Uso
+
+- **Cafés**: Música ambiente relaxante
+- **Restaurantes**: Jazz e clássicos elegantes  
+- **Lojas**: Pop e eletrônico energético
+- **Escritórios**: Música corporativa focada
+- **SPAs**: Ambient e piano relaxante
+- **Hotéis**: Clássicos elegantes
+
+## 📊 Métricas
+
+- Total de reproduções por empresa
+- Músicas mais tocadas
+- Horários de maior uso
+- Tempo médio de sessão
+
+## 🔧 Customização
+
+Para adicionar mais músicas:
+1. Edite `lib/musicData.js`
+2. Adicione URLs de músicas Creative Commons
+3. Configure tags apropriadas (morning/afternoon/evening)
+4. Deploy automático na Vercel
 
 ## 📄 Licença
 
-Este projeto é para uso educacional e demonstração de integração com APIs de IA.
-
----
-
-**Desenvolvido com ❤️ usando Python, Streamlit, Google Gemini e ElevenLabs**
+MIT License - Uso comercial permitido
+Músicas: Creative Commons (Bensound)

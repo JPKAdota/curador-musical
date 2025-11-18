@@ -1,19 +1,5 @@
-# Arquivos de configuração sensíveis
-.env
-*.env
-
-# Cache Python
-__pycache__/
-*.pyc
-*.pyo
-
-# Relatórios gerados
-relatorio_*.json
-prompts_musicais_*.txt
-
-# Logs
+node_modules/
+.next/
+.env*
+.vercel
 *.log
-
-# IDE
-.vscode/
-.idea/
