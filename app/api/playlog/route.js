@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
+import supabase from '../../../lib/db.js';
 
 export async function POST(request) {
   try {
     const logData = await request.json();
     
-    // Validar dados obrigatórios
     const { company, track_id, started_at } = logData;
     
     if (!company || !track_id || !started_at) {
@@ -14,15 +14,18 @@ export async function POST(request) {
       );
     }
 
-    // Em produção, aqui salvaria no banco de dados
-    // Por enquanto, apenas log no console
-    console.log('Play Log:', {
-      company,
-      track_id,
+    // Salvar log no Supabase
+    const { error } = await supabase.from('play_logs').insert({
+      company_name: company,
+      track_id: parseInt(track_id),
       started_at,
-      ended_at: logData.ended_at || null,
-      timestamp: new Date().toISOString()
+      ended_at: logData.ended_at || null
     });
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json({ error: 'Database error' }, { status: 500 });
+    }
 
     return NextResponse.json({ 
       success: true, 
@@ -30,6 +33,7 @@ export async function POST(request) {
     });
     
   } catch (error) {
+    console.error('API error:', error);
     return NextResponse.json(
       { error: 'Invalid JSON data' }, 
       { status: 400 }

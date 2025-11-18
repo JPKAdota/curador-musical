@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import pool from '../../../lib/db.js';
+import supabase from '../../../lib/db.js';
 import { analyzeCompany } from '../../../lib/musicData.js';
 
 export async function GET(request) {
@@ -14,20 +14,22 @@ export async function GET(request) {
     const analysis = analyzeCompany(company);
     
     // Salvar empresa no banco
-    await pool.query(
-      'INSERT INTO companies (name, business_type, vibe, genres) VALUES ($1, $2, $3, $4) ON CONFLICT DO NOTHING',
-      [company, analysis.businessType, analysis.vibe, JSON.stringify(analysis.genres)]
-    );
+    await supabase.from('companies').upsert({
+      name: company,
+      business_type: analysis.businessType,
+      vibe: analysis.vibe,
+      genres: analysis.genres
+    });
     
-    // Buscar músicas do banco baseado nos gêneros
-    const { rows: tracks } = await pool.query(
-      'SELECT * FROM tracks WHERE genre = ANY($1) OR $2 = true',
-      [analysis.genres, analysis.genres.length === 0]
-    );
+    // Buscar músicas do banco
+    const { data: tracks } = await supabase
+      .from('tracks')
+      .select('*')
+      .in('genre', analysis.genres);
     
     // Se não houver músicas suficientes, buscar todas
-    const availableMusic = tracks.length >= 5 ? tracks : 
-      (await pool.query('SELECT * FROM tracks')).rows;
+    const availableMusic = tracks && tracks.length >= 5 ? tracks : 
+      (await supabase.from('tracks').select('*')).data || [];
     
     // Filtrar por horário
     const morningTracks = availableMusic.filter(track => 
