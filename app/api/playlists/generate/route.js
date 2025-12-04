@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server';
 import supabase from '../../../../lib/db.js';
 
+function log(message, data = null) {
+    // Also log to console for development
+    console.log(message, data || '');
+}
+
 export async function POST(request) {
     try {
         const { brandId } = await request.json();
@@ -20,8 +25,8 @@ export async function POST(request) {
             return NextResponse.json({ error: 'Brand not found' }, { status: 404 });
         }
 
-        console.log('🎵 Gerando playlists para:', brand.name);
-        console.log('📊 Dados da brand:', { track_count: brand.track_count, bpm_ranges: brand.bpm_ranges, time_distribution: brand.time_distribution });
+        log('🎵 Gerando playlists para:', brand.name);
+        log('📊 Dados da brand:', { track_count: brand.track_count, bpm_ranges: brand.bpm_ranges, time_distribution: brand.time_distribution });
 
         const { track_count, bpm_ranges, genres, time_distribution } = brand;
 
@@ -32,58 +37,115 @@ export async function POST(request) {
             evening: Math.floor(track_count * (time_distribution.evening / 100))
         };
 
-        console.log('📈 Músicas por período:', tracksPerPeriod);
+        log('📈 Músicas por período:', tracksPerPeriod);
 
         const CLIENT_ID = process.env.JAMENDO_CLIENT_ID;
-        console.log('🔑 Jamendo Client ID:', CLIENT_ID ? 'Configurado ✅' : 'NÃO CONFIGURADO ❌');
+        log('🔑 Jamendo Client ID:', CLIENT_ID ? 'Configurado ✅' : 'NÃO CONFIGURADO ❌');
 
         const playlists = [];
 
         // Generate playlist for each period
         for (const [period, count] of Object.entries(tracksPerPeriod)) {
-            console.log(`\n⏰ Gerando playlist para: ${period} (${count} músicas)`);
+            log(`\n⏰ Gerando playlist para: ${period} (${count} músicas)`);
 
             const periodData = bpm_ranges[period];
-            console.log('   Dados do período:', periodData);
+            log('   Dados do período:', periodData);
 
             const tagsList = periodData.genres;
-            // Pick ONE random tag to increase chance of results (AND logic with multiple tags often returns 0 results)
+            // Pick ONE random tag to increase chance of results
             const randomTag = tagsList[Math.floor(Math.random() * tagsList.length)];
-            console.log('   Tags disponíveis:', tagsList);
-            console.log('   Tag selecionada para busca:', randomTag);
+            log('   Tags disponíveis:', tagsList);
+            log('   Tag selecionada para busca:', randomTag);
 
             // Fetch from Jamendo
-            // Fetch more tracks than needed to allow for randomization (pool size)
             const poolSize = Math.max(count * 5, 50);
 
-            // Randomize sort order and offset to ensure variety
+            // 1. Fetch a SEED track first
             const orders = ['popularity_month', 'releasedate', 'relevance', 'popularity_total'];
             const randomOrder = orders[Math.floor(Math.random() * orders.length)];
-            const randomOffset = Math.floor(Math.random() * 50); // Skip up to 50 tracks
+            const randomOffset = Math.floor(Math.random() * 500);
 
-            // Use the single random tag
-            const url = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${poolSize}&tags=${encodeURIComponent(randomTag)}&include=musicinfo&audioformat=mp32&order=${randomOrder}&offset=${randomOffset}`;
-            console.log(`   🔗 URL Jamendo (Order: ${randomOrder}, Offset: ${randomOffset}):`, url);
+            // Fetch just 1 track to be the seed
+            const seedUrl = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=1&tags=${encodeURIComponent(randomTag)}&include=musicinfo&audioformat=mp32&order=${randomOrder}&offset=${randomOffset}`;
+            console.log(`   🌱 Buscando seed track (Order: ${randomOrder}, Offset: ${randomOffset}):`, seedUrl);
 
-            // Disable caching to prevent stale results
-            const response = await fetch(url, { cache: 'no-store' });
-            const data = await response.json();
+            const seedResponse = await fetch(seedUrl, { cache: 'no-store' });
+            const seedData = await seedResponse.json();
+            const seedTrack = seedData.results?.[0];
 
-            // Fallback to popular if no results
-            let allTracks = data.results || [];
-            if (allTracks.length === 0) {
-                console.log('   ⚠️  Nenhuma música encontrada com a tag, buscando populares (com randomização)...');
+            let allTracks = [];
 
-                // Also randomize the fallback to avoid always getting the same "top 50"
-                const fallbackOrder = orders[Math.floor(Math.random() * orders.length)];
-                const fallbackOffset = Math.floor(Math.random() * 100); // Larger offset for fallback
+            if (seedTrack) {
+                console.log(`   ✨ Seed encontrada: ${seedTrack.name} (ID: ${seedTrack.id})`);
+                allTracks.push(seedTrack);
 
-                const fallbackResponse = await fetch(
-                    `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${poolSize}&order=${fallbackOrder}&offset=${fallbackOffset}&include=musicinfo&audioformat=mp32`,
-                    { cache: 'no-store' }
-                );
-                const fallbackData = await fallbackResponse.json();
-                allTracks = fallbackData.results || [];
+                // 2. Fetch SIMILAR tracks based on the seed
+                const similarUrl = `https://api.jamendo.com/v3.0/tracks/similar/?client_id=${CLIENT_ID}&format=json&limit=${poolSize}&id=${seedTrack.id}&no_artist=1&include=musicinfo&audioformat=mp32`;
+                console.log(`   🔗 Buscando similares:`, similarUrl);
+
+                const similarResponse = await fetch(similarUrl, { cache: 'no-store' });
+                const similarData = await similarResponse.json();
+
+                if (similarData.results && similarData.results.length > 0) {
+                    console.log(`   👯 Encontradas ${similarData.results.length} músicas similares.`);
+                    allTracks = [...allTracks, ...similarData.results];
+                } else {
+                    console.log(`   ⚠️  Nenhuma música similar encontrada.`);
+                }
+            } else {
+                console.log(`   ⚠️  Nenhuma seed encontrada com offset ${randomOffset}.`);
+            }
+
+            // 3. Fallback / Fill Logic
+            if (allTracks.length < count) {
+                console.log(`   ⚠️  Músicas insuficientes (${allTracks.length}/${count}). Completando com busca por tag...`);
+
+                // Retry logic for tag search
+                let tagTracks = [];
+
+                // Try high offset first
+                const tagUrl = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${poolSize}&tags=${encodeURIComponent(randomTag)}&include=musicinfo&audioformat=mp32&order=${randomOrder}&offset=${randomOffset}`;
+                console.log(`   🔗 URL Tag Search:`, tagUrl);
+
+                const tagResponse = await fetch(tagUrl, { cache: 'no-store' });
+                const tagData = await tagResponse.json();
+                tagTracks = tagData.results || [];
+
+                // Retry with low offset if empty
+                if (tagTracks.length === 0 && randomOffset > 50) {
+                    const lowOffset = Math.floor(Math.random() * 50);
+                    console.log(`   ⚠️  Nenhuma música com offset ${randomOffset}. Tentando novamente com offset baixo (${lowOffset})...`);
+
+                    const retryUrl = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${poolSize}&tags=${encodeURIComponent(randomTag)}&include=musicinfo&audioformat=mp32&order=${randomOrder}&offset=${lowOffset}`;
+                    console.log(`   🔗 URL Retry:`, retryUrl);
+
+                    const retryResponse = await fetch(retryUrl, { cache: 'no-store' });
+                    const retryData = await retryResponse.json();
+                    tagTracks = retryData.results || [];
+                }
+
+                // If still empty, go to popular
+                if (tagTracks.length === 0) {
+                    console.log(`   ⚠️  Ainda sem músicas para tag '${randomTag}'. Buscando populares...`);
+                    const fallbackOrder = orders[Math.floor(Math.random() * orders.length)];
+                    const fallbackOffset = Math.floor(Math.random() * 1000);
+
+                    const fallbackUrl = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${poolSize}&order=${fallbackOrder}&offset=${fallbackOffset}&include=musicinfo&audioformat=mp32`;
+                    console.log(`   🔗 URL Fallback (Order: ${fallbackOrder}, Offset: ${fallbackOffset}):`, fallbackUrl);
+
+                    const fallbackResponse = await fetch(fallbackUrl, { cache: 'no-store' });
+                    const fallbackData = await fallbackResponse.json();
+                    tagTracks = fallbackData.results || [];
+                }
+
+                // Add unique tracks to allTracks
+                const existingIds = new Set(allTracks.map(t => t.id));
+                for (const track of tagTracks) {
+                    if (!existingIds.has(track.id)) {
+                        allTracks.push(track);
+                        existingIds.add(track.id);
+                    }
+                }
             }
 
             // Shuffle tracks (Fisher-Yates algorithm)
@@ -96,7 +158,7 @@ export async function POST(request) {
             const tracks = allTracks.slice(0, count);
 
             // Save tracks to database (without duplicates)
-            console.log(`   💾 Salvando ${tracks.length} músicas na biblioteca...`);
+            log(`   💾 Salvando ${tracks.length} músicas na biblioteca...`);
             const trackIds = [];
 
             for (const item of tracks) {
@@ -108,7 +170,7 @@ export async function POST(request) {
                     .single();
 
                 if (existingTrack) {
-                    console.log(`   ♻️  Música já existe: ${item.name} (ID: ${existingTrack.id})`);
+                    log(`   ♻️  Música já existe: ${item.name} (ID: ${existingTrack.id})`);
                     trackIds.push(existingTrack.id);
                 } else {
                     // Insert new track
@@ -134,14 +196,14 @@ export async function POST(request) {
                     if (trackError) {
                         console.error(`   ❌ Erro ao salvar música: ${trackError.message}`);
                     } else {
-                        console.log(`   ✅ Nova música salva: ${item.name} (ID: ${newTrack.id})`);
+                        log(`   ✅ Nova música salva: ${item.name} (ID: ${newTrack.id})`);
                         trackIds.push(newTrack.id);
                     }
                 }
             }
 
             // Save playlist to database with track IDs
-            console.log(`   💾 Salvando playlist no banco com ${trackIds.length} músicas...`);
+            log(`   💾 Salvando playlist no banco com ${trackIds.length} músicas...`);
             const { data: savedData, error: playlistError } = await supabase
                 .from('playlists')
                 .insert({
@@ -157,7 +219,7 @@ export async function POST(request) {
             if (playlistError) {
                 console.error('   ❌ Erro ao salvar playlist:', playlistError);
             } else {
-                console.log(`   ✅ Playlist salva com sucesso! ID: ${savedData?.[0]?.id}`);
+                log(`   ✅ Playlist salva com sucesso! ID: ${savedData?.[0]?.id}`);
             }
 
             // Fetch tracks for response
@@ -184,6 +246,7 @@ export async function POST(request) {
         return NextResponse.json({ playlists });
     } catch (error) {
         console.error('Error generating playlists:', error);
+        log('Error generating playlists:', error.message);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }

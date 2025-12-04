@@ -1,0 +1,450 @@
+2025-12-04T20:06:59.547Z - 🎵 Gerando playlists para: "Smart fit" 
+2025-12-04T20:06:59.549Z - 📊 Dados da brand: {
+  "track_count": 100,
+  "bpm_ranges": {
+    "evening": {
+      "max": 130,
+      "min": 110,
+      "genres": [
+        "Pop Rock",
+        "Electronic",
+        "Chill House",
+        "Downtempo"
+      ]
+    },
+    "morning": {
+      "max": 140,
+      "min": 120,
+      "genres": [
+        "Electronic",
+        "Rock",
+        "Energy",
+        "Workout"
+      ]
+    },
+    "afternoon": {
+      "max": 150,
+      "min": 130,
+      "genres": [
+        "EDM",
+        "Hard Rock",
+        "Motivation",
+        "Upbeat"
+      ]
+    }
+  },
+  "time_distribution": {
+    "evening": 33,
+    "morning": 33,
+    "afternoon": 34
+  }
+} 
+2025-12-04T20:06:59.554Z - 📈 Músicas por período: {
+  "morning": 33,
+  "afternoon": 34,
+  "evening": 33
+} 
+2025-12-04T20:06:59.555Z - 🔑 Jamendo Client ID: "Configurado ✅" 
+2025-12-04T20:06:59.556Z - 
+⏰ Gerando playlist para: morning (33 músicas)  
+2025-12-04T20:06:59.557Z -    Dados do período: {
+  "max": 140,
+  "min": 120,
+  "genres": [
+    "Electronic",
+    "Rock",
+    "Energy",
+    "Workout"
+  ]
+} 
+2025-12-04T20:06:59.559Z -    Tags disponíveis: [
+  "Electronic",
+  "Rock",
+  "Energy",
+  "Workout"
+] 
+2025-12-04T20:06:59.560Z -    Tag selecionada para busca: "Electronic" 
+2025-12-04T20:06:59.561Z -    🔗 URL Jamendo (Order: releasedate, Offset: 328): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=165&tags=Electronic&include=musicinfo&audioformat=mp32&order=releasedate&offset=328" 
+2025-12-04T20:07:00.362Z -    📊 Resultados encontrados: 165  
+2025-12-04T20:07:00.364Z -    💾 Salvando 33 músicas na biblioteca...  
+2025-12-04T20:07:00.492Z -    ✅ Nova música salva: Zouky tibwa (ID: 50)  
+2025-12-04T20:07:00.629Z -    ✅ Nova música salva: Walk then Run (ID: 51)  
+2025-12-04T20:07:00.721Z -    ✅ Nova música salva: Another World (ID: 52)  
+2025-12-04T20:07:00.800Z -    ✅ Nova música salva: Au coeur des villes / Feat . Cynthia (ID: 53)  
+2025-12-04T20:07:00.883Z -    ✅ Nova música salva: Niamjet (ID: 54)  
+2025-12-04T20:07:00.972Z -    ✅ Nova música salva: The Arrival (ID: 55)  
+2025-12-04T20:07:01.067Z -    ✅ Nova música salva: Lost (ID: 56)  
+2025-12-04T20:07:01.143Z -    ✅ Nova música salva: Beat Into Submission (Solo) (ID: 57)  
+2025-12-04T20:07:01.226Z -    ✅ Nova música salva: Welcome to the new world (ID: 58)  
+2025-12-04T20:07:01.318Z -    ✅ Nova música salva: Berceuse (ID: 59)  
+2025-12-04T20:07:01.399Z -    ✅ Nova música salva: White Nightmare (ID: 60)  
+2025-12-04T20:07:01.743Z -    ✅ Nova música salva: Cold joy (ID: 61)  
+2025-12-04T20:07:01.826Z -    ✅ Nova música salva: Jerked heart (ID: 62)  
+2025-12-04T20:07:01.910Z -    ✅ Nova música salva: Moving fast to the meeting (ID: 63)  
+2025-12-04T20:07:02.009Z -    ✅ Nova música salva: Vari nush (ID: 64)  
+2025-12-04T20:07:02.090Z -    ✅ Nova música salva: Atmospheric (ID: 65)  
+2025-12-04T20:07:02.172Z -    ✅ Nova música salva: Moraine part 2 (ID: 66)  
+2025-12-04T20:07:02.277Z -    ✅ Nova música salva: Exit (ID: 67)  
+2025-12-04T20:07:02.554Z -    ✅ Nova música salva: Rattrappe moi si tu veux (ID: 68)  
+2025-12-04T20:07:02.663Z -    ✅ Nova música salva: China (ID: 69)  
+2025-12-04T20:07:02.750Z -    ✅ Nova música salva: Fuck It (ID: 70)  
+2025-12-04T20:07:02.826Z -    ✅ Nova música salva: Rêves About U (ID: 71)  
+2025-12-04T20:07:02.919Z -    ✅ Nova música salva: Nouvelle Ere (ID: 72)  
+2025-12-04T20:07:03.052Z -    ✅ Nova música salva: Trip in the grass (ID: 73)  
+2025-12-04T20:07:03.135Z -    ✅ Nova música salva: I lost my mind (ID: 74)  
+2025-12-04T20:07:03.274Z -    ✅ Nova música salva: Orchestral  (ID: 75)  
+2025-12-04T20:07:03.369Z -    ✅ Nova música salva: Resura (ID: 76)  
+2025-12-04T20:07:03.450Z -    ✅ Nova música salva: Moving Stars (ID: 77)  
+2025-12-04T20:07:03.541Z -    ✅ Nova música salva: Particule (ID: 78)  
+2025-12-04T20:07:03.622Z -    ✅ Nova música salva: Push Ya (ID: 79)  
+2025-12-04T20:07:03.729Z -    ✅ Nova música salva: Youth redemption (ID: 80)  
+2025-12-04T20:07:03.815Z -    ✅ Nova música salva: Cosmic crisis part 2 (ID: 81)  
+2025-12-04T20:07:03.904Z -    ✅ Nova música salva: Humanité trouvée (ID: 82)  
+2025-12-04T20:07:03.905Z -    💾 Salvando playlist no banco com 33 músicas...  
+2025-12-04T20:07:03.953Z -    ✅ Playlist salva com sucesso! ID: 64  
+2025-12-04T20:07:04.013Z - 
+⏰ Gerando playlist para: afternoon (34 músicas)  
+2025-12-04T20:07:04.014Z -    Dados do período: {
+  "max": 150,
+  "min": 130,
+  "genres": [
+    "EDM",
+    "Hard Rock",
+    "Motivation",
+    "Upbeat"
+  ]
+} 
+2025-12-04T20:07:04.016Z -    Tags disponíveis: [
+  "EDM",
+  "Hard Rock",
+  "Motivation",
+  "Upbeat"
+] 
+2025-12-04T20:07:04.017Z -    Tag selecionada para busca: "Hard Rock" 
+2025-12-04T20:07:04.017Z -    🔗 URL Jamendo (Order: popularity_total, Offset: 319): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=170&tags=Hard%20Rock&include=musicinfo&audioformat=mp32&order=popularity_total&offset=319" 
+2025-12-04T20:07:04.413Z -    📊 Resultados encontrados: 0  
+2025-12-04T20:07:04.414Z -    ⚠️  Nenhuma música encontrada com a tag 'Hard Rock' e offset 319. Buscando populares...  
+2025-12-04T20:07:04.416Z -    🔗 URL Fallback (Order: popularity_total, Offset: 607): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=170&order=popularity_total&offset=607&include=musicinfo&audioformat=mp32" 
+2025-12-04T20:07:05.026Z -    📊 Resultados Fallback: 170  
+2025-12-04T20:07:05.027Z -    💾 Salvando 34 músicas na biblioteca...  
+2025-12-04T20:07:05.114Z -    ✅ Nova música salva: Hypnic Jerk (ID: 83)  
+2025-12-04T20:07:05.208Z -    ✅ Nova música salva: Rain (ID: 84)  
+2025-12-04T20:07:05.304Z -    ✅ Nova música salva: On the Run (ID: 85)  
+2025-12-04T20:07:05.382Z -    ✅ Nova música salva: Better (ID: 86)  
+2025-12-04T20:07:05.470Z -    ✅ Nova música salva: Le nettoyeur (ID: 87)  
+2025-12-04T20:07:05.546Z -    ✅ Nova música salva: Ska One (ID: 88)  
+2025-12-04T20:07:05.653Z -    ✅ Nova música salva: Go Away (ID: 89)  
+2025-12-04T20:07:05.736Z -    ✅ Nova música salva: Urban (ID: 90)  
+2025-12-04T20:07:05.814Z -    ✅ Nova música salva: Oceans (ID: 91)  
+2025-12-04T20:07:05.903Z -    ✅ Nova música salva: Summer Garden (ID: 92)  
+2025-12-04T20:07:05.983Z -    ✅ Nova música salva: Life By Proxy (ID: 93)  
+2025-12-04T20:07:06.073Z -    ✅ Nova música salva: can we speak (ID: 94)  
+2025-12-04T20:07:06.171Z -    ✅ Nova música salva: Great Moves (ID: 95)  
+2025-12-04T20:07:06.261Z -    ✅ Nova música salva: Dj Rostej - Love Me... (ID: 96)  
+2025-12-04T20:07:06.350Z -    ✅ Nova música salva: I Do (ID: 97)  
+2025-12-04T20:07:06.432Z -    ✅ Nova música salva: Weekend (ID: 98)  
+2025-12-04T20:07:06.512Z -    ✅ Nova música salva: Mindcrawl (ID: 99)  
+2025-12-04T20:07:06.606Z -    ✅ Nova música salva: Summer Breeze (ID: 100)  
+2025-12-04T20:07:06.720Z -    ✅ Nova música salva: ON SALE (ID: 101)  
+2025-12-04T20:07:06.812Z -    ✅ Nova música salva: Riega's Bad Habit (ID: 102)  
+2025-12-04T20:07:06.906Z -    ✅ Nova música salva: Glow (ID: 103)  
+2025-12-04T20:07:06.986Z -    ✅ Nova música salva: Constellation (ID: 104)  
+2025-12-04T20:07:07.093Z -    ✅ Nova música salva: Head Over Heels (ID: 105)  
+2025-12-04T20:07:07.177Z -    ✅ Nova música salva: Stars Of My Mind (ID: 106)  
+2025-12-04T20:07:07.285Z -    ✅ Nova música salva: Nostalgia (ID: 107)  
+2025-12-04T20:07:07.392Z -    ✅ Nova música salva: Hola Hola Bossa Nova (ID: 108)  
+2025-12-04T20:07:07.507Z -    ✅ Nova música salva: Distance friend (ID: 109)  
+2025-12-04T20:07:07.580Z -    ✅ Nova música salva: YO QUIERO BEBER - Pueto pa lo mio records Presenta - Marshall Aquicci ft AllGenius - (Musica urbana, latin, latin urban, bass) (ID: 110)  
+2025-12-04T20:07:07.672Z -    ✅ Nova música salva: Destiny (ID: 111)  
+2025-12-04T20:07:07.763Z -    ✅ Nova música salva: Dewey Square (ID: 112)  
+2025-12-04T20:07:07.858Z -    ✅ Nova música salva: Sun Tour (ID: 113)  
+2025-12-04T20:07:07.942Z -    ✅ Nova música salva: Earthbound (ID: 114)  
+2025-12-04T20:07:08.030Z -    ✅ Nova música salva: The Journey (ID: 115)  
+2025-12-04T20:07:08.114Z -    ✅ Nova música salva: the plan - stoneface priest (ID: 116)  
+2025-12-04T20:07:08.115Z -    💾 Salvando playlist no banco com 34 músicas...  
+2025-12-04T20:07:08.160Z -    ✅ Playlist salva com sucesso! ID: 65  
+2025-12-04T20:07:08.217Z - 
+⏰ Gerando playlist para: evening (33 músicas)  
+2025-12-04T20:07:08.218Z -    Dados do período: {
+  "max": 130,
+  "min": 110,
+  "genres": [
+    "Pop Rock",
+    "Electronic",
+    "Chill House",
+    "Downtempo"
+  ]
+} 
+2025-12-04T20:07:08.219Z -    Tags disponíveis: [
+  "Pop Rock",
+  "Electronic",
+  "Chill House",
+  "Downtempo"
+] 
+2025-12-04T20:07:08.220Z -    Tag selecionada para busca: "Chill House" 
+2025-12-04T20:07:08.221Z -    🔗 URL Jamendo (Order: releasedate, Offset: 475): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=165&tags=Chill%20House&include=musicinfo&audioformat=mp32&order=releasedate&offset=475" 
+2025-12-04T20:07:08.637Z -    📊 Resultados encontrados: 0  
+2025-12-04T20:07:08.638Z -    ⚠️  Nenhuma música encontrada com a tag 'Chill House' e offset 475. Buscando populares...  
+2025-12-04T20:07:08.640Z -    🔗 URL Fallback (Order: popularity_total, Offset: 718): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=165&order=popularity_total&offset=718&include=musicinfo&audioformat=mp32" 
+2025-12-04T20:07:09.418Z -    📊 Resultados Fallback: 165  
+2025-12-04T20:07:09.420Z -    💾 Salvando 33 músicas na biblioteca...  
+2025-12-04T20:07:09.522Z -    ✅ Nova música salva: Une étincelle (ID: 117)  
+2025-12-04T20:07:09.611Z -    ✅ Nova música salva: Enjoy Your Life (joyful and carefree tune) (ID: 118)  
+2025-12-04T20:07:09.700Z -    ✅ Nova música salva: Outside Help (ID: 119)  
+2025-12-04T20:07:09.738Z -    ♻️  Música já existe: Great Moves (ID: 95)  
+2025-12-04T20:07:09.837Z -    ✅ Nova música salva: Tomorrow's Executive (ID: 120)  
+2025-12-04T20:07:09.914Z -    ✅ Nova música salva: Settle Down (feat. yofellas) (ID: 121)  
+2025-12-04T20:07:09.997Z -    ✅ Nova música salva: Oia (ID: 122)  
+2025-12-04T20:07:10.078Z -    ✅ Nova música salva: Swan Song (of Our Love) (ID: 123)  
+2025-12-04T20:07:10.158Z -    ✅ Nova música salva: Uonin's Piece (ID: 124)  
+2025-12-04T20:07:10.245Z -    ✅ Nova música salva: Nothing,With You (ID: 125)  
+2025-12-04T20:07:10.325Z -    ✅ Nova música salva: Broken Windshield (ID: 126)  
+2025-12-04T20:07:10.406Z -    ✅ Nova música salva: Sounds From The Past (ID: 127)  
+2025-12-04T20:07:10.487Z -    ✅ Nova música salva: Dirty angel (ID: 128)  
+2025-12-04T20:07:10.576Z -    ✅ Nova música salva: Let The Sunshine In (ID: 129)  
+2025-12-04T20:07:10.652Z -    ✅ Nova música salva: Moonlit Clouds (ID: 130)  
+2025-12-04T20:07:10.740Z -    ✅ Nova música salva: Pra_Onde_e_Que_eu_Vou_ (ID: 131)  
+2025-12-04T20:07:10.828Z -    ✅ Nova música salva: In and Out (ID: 132)  
+2025-12-04T20:07:10.936Z -    ✅ Nova música salva: AS THE SUN RISES (ID: 133)  
+2025-12-04T20:07:11.019Z -    ✅ Nova música salva: Open The Source (ID: 134)  
+2025-12-04T20:07:11.099Z -    ✅ Nova música salva: All You Know (ID: 135)  
+2025-12-04T20:07:11.183Z -    ✅ Nova música salva: Ambient Flight (Electro Vocal Mix) (ID: 136)  
+2025-12-04T20:07:11.280Z -    ✅ Nova música salva: Talk Samba (Parliamo un pò) (ID: 137)  
+2025-12-04T20:07:11.364Z -    ✅ Nova música salva: Dub In England (ID: 138)  
+2025-12-04T20:07:11.456Z -    ✅ Nova música salva: FLIGHT (ID: 139)  
+2025-12-04T20:07:11.499Z -    ♻️  Música já existe: ON SALE (ID: 101)  
+2025-12-04T20:07:11.609Z -    ✅ Nova música salva: doin' time (ID: 140)  
+2025-12-04T20:07:11.712Z -    ✅ Nova música salva: Lullaby For Phil (ID: 141)  
+2025-12-04T20:07:11.798Z -    ✅ Nova música salva: Island of light (ID: 142)  
+2025-12-04T20:07:11.891Z -    ✅ Nova música salva: JekK  - Keep me Alive (After Lofi) (ID: 143)  
+2025-12-04T20:07:11.972Z -    ✅ Nova música salva: Spring (ID: 144)  
+2025-12-04T20:07:12.055Z -    ✅ Nova música salva: Es El Cristo(version salsa) (ID: 145)  
+2025-12-04T20:07:12.140Z -    ✅ Nova música salva: Chasing Tomorrow (feat. Jade Gritty) (ID: 146)  
+2025-12-04T20:07:12.224Z -    ✅ Nova música salva: Lotus Indou (ID: 147)  
+2025-12-04T20:07:12.226Z -    💾 Salvando playlist no banco com 33 músicas...  
+2025-12-04T20:07:12.268Z -    ✅ Playlist salva com sucesso! ID: 66  
+2025-12-04T20:08:05.760Z - 🎵 Gerando playlists para: "Smart fit" 
+2025-12-04T20:08:05.761Z - 📊 Dados da brand: {
+  "track_count": 100,
+  "bpm_ranges": {
+    "evening": {
+      "max": 130,
+      "min": 110,
+      "genres": [
+        "Pop Rock",
+        "Electronic",
+        "Chill House",
+        "Downtempo"
+      ]
+    },
+    "morning": {
+      "max": 140,
+      "min": 120,
+      "genres": [
+        "Electronic",
+        "Rock",
+        "Energy",
+        "Workout"
+      ]
+    },
+    "afternoon": {
+      "max": 150,
+      "min": 130,
+      "genres": [
+        "EDM",
+        "Hard Rock",
+        "Motivation",
+        "Upbeat"
+      ]
+    }
+  },
+  "time_distribution": {
+    "evening": 33,
+    "morning": 33,
+    "afternoon": 34
+  }
+} 
+2025-12-04T20:08:05.768Z - 📈 Músicas por período: {
+  "morning": 33,
+  "afternoon": 34,
+  "evening": 33
+} 
+2025-12-04T20:08:05.769Z - 🔑 Jamendo Client ID: "Configurado ✅" 
+2025-12-04T20:08:05.771Z - 
+⏰ Gerando playlist para: morning (33 músicas)  
+2025-12-04T20:08:05.773Z -    Dados do período: {
+  "max": 140,
+  "min": 120,
+  "genres": [
+    "Electronic",
+    "Rock",
+    "Energy",
+    "Workout"
+  ]
+} 
+2025-12-04T20:08:05.776Z -    Tags disponíveis: [
+  "Electronic",
+  "Rock",
+  "Energy",
+  "Workout"
+] 
+2025-12-04T20:08:05.777Z -    Tag selecionada para busca: "Energy" 
+2025-12-04T20:08:05.778Z -    🔗 URL Jamendo (Order: releasedate, Offset: 232): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=165&tags=Energy&include=musicinfo&audioformat=mp32&order=releasedate&offset=232" 
+2025-12-04T20:08:06.335Z -    📊 Resultados encontrados: 165  
+2025-12-04T20:08:06.337Z -    💾 Salvando 33 músicas na biblioteca...  
+2025-12-04T20:08:06.428Z -    ✅ Nova música salva: Sacrifice (ID: 148)  
+2025-12-04T20:08:06.553Z -    ✅ Nova música salva: Realized (ID: 149)  
+2025-12-04T20:08:06.640Z -    ✅ Nova música salva: Viens, Esprit de sainteté (ID: 150)  
+2025-12-04T20:08:06.732Z -    ✅ Nova música salva: Cold days (ID: 151)  
+2025-12-04T20:08:06.818Z -    ✅ Nova música salva: Mein Mann (ID: 152)  
+2025-12-04T20:08:06.913Z -    ✅ Nova música salva: OBCY_Indiana Engine (ID: 153)  
+2025-12-04T20:08:07.010Z -    ✅ Nova música salva: Monsieur Reste (ID: 154)  
+2025-12-04T20:08:07.096Z -    ✅ Nova música salva: A last time (ID: 155)  
+2025-12-04T20:08:07.179Z -    ✅ Nova música salva: Je suis (ID: 156)  
+2025-12-04T20:08:07.267Z -    ✅ Nova música salva: IQ 53 (ID: 157)  
+2025-12-04T20:08:07.364Z -    ✅ Nova música salva: Bliss ( 7 Tines Kalimba) (ID: 158)  
+2025-12-04T20:08:07.454Z -    ✅ Nova música salva: Winter wind (ID: 159)  
+2025-12-04T20:08:07.540Z -    ✅ Nova música salva: Spirit of chaos (ID: 160)  
+2025-12-04T20:08:07.625Z -    ✅ Nova música salva: OBCY_Escapade (ID: 161)  
+2025-12-04T20:08:07.710Z -    ✅ Nova música salva: Wasted (ID: 162)  
+2025-12-04T20:08:07.832Z -    ✅ Nova música salva: A smile on your face (ID: 163)  
+2025-12-04T20:08:07.934Z -    ✅ Nova música salva: Disappear! (ID: 164)  
+2025-12-04T20:08:08.023Z -    ✅ Nova música salva: Religionnaire (ID: 165)  
+2025-12-04T20:08:08.113Z -    ✅ Nova música salva: la bolée de bedan (ID: 166)  
+2025-12-04T20:08:08.234Z -    ✅ Nova música salva: Solaris (ID: 167)  
+2025-12-04T20:08:08.347Z -    ✅ Nova música salva: Deathwish Debbie (ID: 168)  
+2025-12-04T20:08:08.466Z -    ✅ Nova música salva: Kannunkaataja (ID: 169)  
+2025-12-04T20:08:08.564Z -    ✅ Nova música salva: Nani 3 (ID: 170)  
+2025-12-04T20:08:08.659Z -    ✅ Nova música salva: My shining star (ID: 171)  
+2025-12-04T20:08:08.745Z -    ✅ Nova música salva: L'aspirateur (ID: 172)  
+2025-12-04T20:08:08.850Z -    ✅ Nova música salva: noel (ID: 173)  
+2025-12-04T20:08:08.958Z -    ✅ Nova música salva: Hey Papa (ID: 174)  
+2025-12-04T20:08:09.065Z -    ✅ Nova música salva: Wild Jungle Mix (World's Trance) (ID: 175)  
+2025-12-04T20:08:09.190Z -    ✅ Nova música salva: Mechanaton (Electromechanical Trance) (ID: 176)  
+2025-12-04T20:08:09.299Z -    ✅ Nova música salva: la complainte des 7 nains  (ID: 177)  
+2025-12-04T20:08:09.404Z -    ✅ Nova música salva: DE RETORNO À MINHA TRIBO (ID: 178)  
+2025-12-04T20:08:09.514Z -    ✅ Nova música salva: Correspondant actuellement en ligne (ID: 179)  
+2025-12-04T20:08:09.620Z -    ✅ Nova música salva: OBCY_Gennomica (ID: 180)  
+2025-12-04T20:08:09.621Z -    💾 Salvando playlist no banco com 33 músicas...  
+2025-12-04T20:08:09.667Z -    ✅ Playlist salva com sucesso! ID: 67  
+2025-12-04T20:08:09.742Z - 
+⏰ Gerando playlist para: afternoon (34 músicas)  
+2025-12-04T20:08:09.743Z -    Dados do período: {
+  "max": 150,
+  "min": 130,
+  "genres": [
+    "EDM",
+    "Hard Rock",
+    "Motivation",
+    "Upbeat"
+  ]
+} 
+2025-12-04T20:08:09.744Z -    Tags disponíveis: [
+  "EDM",
+  "Hard Rock",
+  "Motivation",
+  "Upbeat"
+] 
+2025-12-04T20:08:09.745Z -    Tag selecionada para busca: "Hard Rock" 
+2025-12-04T20:08:09.746Z -    🔗 URL Jamendo (Order: popularity_month, Offset: 317): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=170&tags=Hard%20Rock&include=musicinfo&audioformat=mp32&order=popularity_month&offset=317" 
+2025-12-04T20:08:10.103Z -    📊 Resultados encontrados: 0  
+2025-12-04T20:08:10.105Z -    ⚠️  Nenhuma música com offset 317. Tentando novamente com offset baixo (28)...  
+2025-12-04T20:08:10.105Z -    🔗 URL Retry: "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=170&tags=Hard%20Rock&include=musicinfo&audioformat=mp32&order=popularity_month&offset=28" 
+2025-12-04T20:08:10.512Z -    📊 Resultados Retry: 0  
+2025-12-04T20:08:10.513Z -    ⚠️  Ainda sem músicas para tag 'Hard Rock'. Buscando populares...  
+2025-12-04T20:08:10.514Z -    🔗 URL Fallback (Order: releasedate, Offset: 438): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=170&order=releasedate&offset=438&include=musicinfo&audioformat=mp32" 
+2025-12-04T20:08:11.263Z -    📊 Resultados Fallback: 170  
+2025-12-04T20:08:11.265Z -    💾 Salvando 34 músicas na biblioteca...  
+2025-12-04T20:08:11.390Z -    ✅ Nova música salva: L'horizon (ID: 181)  
+2025-12-04T20:08:11.580Z -    ✅ Nova música salva: Yellow (ID: 182)  
+2025-12-04T20:08:11.723Z -    ✅ Nova música salva: What (ID: 183)  
+2025-12-04T20:08:11.887Z -    ✅ Nova música salva: k-part (ID: 184)  
+2025-12-04T20:08:12.017Z -    ✅ Nova música salva: Black (ID: 185)  
+2025-12-04T20:08:12.106Z -    ✅ Nova música salva: Weight Head (ID: 186)  
+2025-12-04T20:08:12.214Z -    ✅ Nova música salva: Une Histoire (Lou-Angel) (ID: 187)  
+2025-12-04T20:08:12.317Z -    ✅ Nova música salva: J'peux pas dormir (ID: 188)  
+2025-12-04T20:08:12.419Z -    ✅ Nova música salva: Le malheur de Sophie (ID: 189)  
+2025-12-04T20:08:12.514Z -    ✅ Nova música salva: Puzzled (ID: 190)  
+2025-12-04T20:08:12.599Z -    ✅ Nova música salva: Sur la plage romantix (ID: 191)  
+2025-12-04T20:08:12.703Z -    ✅ Nova música salva: Red (ID: 192)  
+2025-12-04T20:08:12.853Z -    ✅ Nova música salva: Gloria sulkitok (ID: 193)  
+2025-12-04T20:08:12.950Z -    ✅ Nova música salva: Ce Corps de Glace (ID: 194)  
+2025-12-04T20:08:13.038Z -    ✅ Nova música salva: kerasrase (ID: 195)  
+2025-12-04T20:08:13.131Z -    ✅ Nova música salva: It's Easy (ID: 196)  
+2025-12-04T20:08:13.222Z -    ✅ Nova música salva: Le Voyageur (ID: 197)  
+2025-12-04T20:08:13.333Z -    ✅ Nova música salva: Shashabichou (ID: 198)  
+2025-12-04T20:08:13.431Z -    ✅ Nova música salva: Beyond the Sky (acoustic) (ID: 199)  
+2025-12-04T20:08:13.524Z -    ✅ Nova música salva: Bernard l'Evier le Retour (ID: 200)  
+2025-12-04T20:08:13.615Z -    ✅ Nova música salva: Propriétaire (ID: 201)  
+2025-12-04T20:08:13.702Z -    ✅ Nova música salva: La paresse (ID: 202)  
+2025-12-04T20:08:13.785Z -    ✅ Nova música salva: Chrome dome (ID: 203)  
+2025-12-04T20:08:13.872Z -    ✅ Nova música salva: Road Céline 2004 (ID: 204)  
+2025-12-04T20:08:13.964Z -    ✅ Nova música salva: Joyeux Noël (ID: 205)  
+2025-12-04T20:08:14.056Z -    ✅ Nova música salva: Beyond the Sky (ID: 206)  
+2025-12-04T20:08:14.164Z -    ✅ Nova música salva: Soft girl (ID: 207)  
+2025-12-04T20:08:14.247Z -    ✅ Nova música salva: Dawn (live) (ID: 208)  
+2025-12-04T20:08:14.335Z -    ✅ Nova música salva: Evresta (ID: 209)  
+2025-12-04T20:08:14.424Z -    ✅ Nova música salva: Rioting (ID: 210)  
+2025-12-04T20:08:14.524Z -    ✅ Nova música salva: beastboy (ID: 211)  
+2025-12-04T20:08:14.625Z -    ✅ Nova música salva: Relax (ID: 212)  
+2025-12-04T20:08:14.707Z -    ✅ Nova música salva: Brown (ID: 213)  
+2025-12-04T20:08:14.799Z -    ✅ Nova música salva: Be yourself (ID: 214)  
+2025-12-04T20:08:14.801Z -    💾 Salvando playlist no banco com 34 músicas...  
+2025-12-04T20:08:14.849Z -    ✅ Playlist salva com sucesso! ID: 68  
+2025-12-04T20:08:14.893Z - 
+⏰ Gerando playlist para: evening (33 músicas)  
+2025-12-04T20:08:14.894Z -    Dados do período: {
+  "max": 130,
+  "min": 110,
+  "genres": [
+    "Pop Rock",
+    "Electronic",
+    "Chill House",
+    "Downtempo"
+  ]
+} 
+2025-12-04T20:08:14.895Z -    Tags disponíveis: [
+  "Pop Rock",
+  "Electronic",
+  "Chill House",
+  "Downtempo"
+] 
+2025-12-04T20:08:14.896Z -    Tag selecionada para busca: "Chill House" 
+2025-12-04T20:08:14.897Z -    🔗 URL Jamendo (Order: popularity_total, Offset: 312): "https://api.jamendo.com/v3.0/tracks/?client_id=ec7b6ebe&format=json&limit=165&tags=Chill%20House&include=musicinfo&audioformat=mp32&order=popularity_total&offset=312" 
+2025-12-04T20:08:15.505Z -    📊 Resultados encontrados: 58  
+2025-12-04T20:08:15.507Z -    💾 Salvando 33 músicas na biblioteca...  
+2025-12-04T20:08:15.587Z -    ✅ Nova música salva: Summer Sky (ID: 215)  
+2025-12-04T20:08:15.684Z -    ✅ Nova música salva: Windmill (ID: 216)  
+2025-12-04T20:08:15.783Z -    ✅ Nova música salva: Driving by after all theese years (original) (ID: 217)  
+2025-12-04T20:08:15.872Z -    ✅ Nova música salva: Bagger Grooves - You and I (ID: 218)  
+2025-12-04T20:08:15.971Z -    ✅ Nova música salva: Covid Is Still Far Away (ID: 219)  
+2025-12-04T20:08:16.055Z -    ✅ Nova música salva: Kiowa (ID: 220)  
+2025-12-04T20:08:16.134Z -    ✅ Nova música salva: Echoes,Pt,1 (ID: 221)  
+2025-12-04T20:08:16.219Z -    ✅ Nova música salva: Repet0 (ID: 222)  
+2025-12-04T20:08:16.309Z -    ✅ Nova música salva: UFO on Beach (ID: 223)  
+2025-12-04T20:08:16.393Z -    ✅ Nova música salva: Beyond the Beach (ID: 224)  
+2025-12-04T20:08:16.474Z -    ✅ Nova música salva: Asahi (ID: 225)  
+2025-12-04T20:08:16.564Z -    ✅ Nova música salva: All Points West (ID: 226)  
+2025-12-04T20:08:16.650Z -    ✅ Nova música salva: Starshine (ID: 227)  
+2025-12-04T20:08:16.733Z -    ✅ Nova música salva: Under the Setting Sun (ID: 228)  
+2025-12-04T20:08:16.830Z -    ✅ Nova música salva: Dawn Patrol (ID: 229)  
+2025-12-04T20:08:16.923Z -    ✅ Nova música salva: eventide (ID: 230)  
+2025-12-04T20:08:17.053Z -    ✅ Nova música salva: Distraction (ID: 231)  
+2025-12-04T20:08:17.168Z -    ✅ Nova música salva: Silent Glow (ID: 232)  
+2025-12-04T20:08:17.267Z -    ✅ Nova música salva: This Summer Life's A Beach Chair (ID: 233)  
+2025-12-04T20:08:17.351Z -    ✅ Nova música salva: It s the joy (ID: 234)  
+2025-12-04T20:08:17.438Z -    ✅ Nova música salva: Делай всё наоборот. (ID: 235)  
+2025-12-04T20:08:17.527Z -    ✅ Nova música salva: Sunset on the sea (ID: 236)  
+2025-12-04T20:08:17.618Z -    ✅ Nova música salva: Aventurine (ID: 237)  
+2025-12-04T20:08:17.712Z -    ✅ Nova música salva: Boogie Water (ID: 238)  
+2025-12-04T20:08:17.804Z -    ✅ Nova música salva: Velvet Sky (ID: 239)  
+2025-12-04T20:08:17.932Z -    ✅ Nova música salva: SundLy Feat Minette Fourie - I will wait for you (ID: 240)  
+2025-12-04T20:08:18.032Z -    ✅ Nova música salva: Epiphany (ID: 241)  
+2025-12-04T20:08:18.115Z -    ✅ Nova música salva: Lo-Fi Future_Bass (ID: 242)  
+2025-12-04T20:08:18.207Z -    ✅ Nova música salva: Never let you alone here (ID: 243)  
+2025-12-04T20:08:18.290Z -    ✅ Nova música salva: Your eyes mirror the soul (ID: 244)  
+2025-12-04T20:08:18.385Z -    ✅ Nova música salva: Ahiko (ID: 245)  
+2025-12-04T20:08:18.482Z -    ✅ Nova música salva: Luna (ID: 246)  
+2025-12-04T20:08:18.573Z -    ✅ Nova música salva: Magical Carnival (ID: 247)  
+2025-12-04T20:08:18.574Z -    💾 Salvando playlist no banco com 33 músicas...  
+2025-12-04T20:08:18.630Z -    ✅ Playlist salva com sucesso! ID: 69  
