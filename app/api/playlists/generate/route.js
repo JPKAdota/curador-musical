@@ -46,26 +46,54 @@ export async function POST(request) {
             const periodData = bpm_ranges[period];
             console.log('   Dados do período:', periodData);
 
-            const tags = periodData.genres.join(' ');
-            console.log('   Tags:', tags);
+            const tagsList = periodData.genres;
+            // Pick ONE random tag to increase chance of results (AND logic with multiple tags often returns 0 results)
+            const randomTag = tagsList[Math.floor(Math.random() * tagsList.length)];
+            console.log('   Tags disponíveis:', tagsList);
+            console.log('   Tag selecionada para busca:', randomTag);
 
             // Fetch from Jamendo
-            const url = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${count}&tags=${encodeURIComponent(tags)}&include=musicinfo&audioformat=mp32`;
-            console.log('   🔗 URL Jamendo:', url);
+            // Fetch more tracks than needed to allow for randomization (pool size)
+            const poolSize = Math.max(count * 5, 50);
 
-            const response = await fetch(url);
+            // Randomize sort order and offset to ensure variety
+            const orders = ['popularity_month', 'releasedate', 'relevance', 'popularity_total'];
+            const randomOrder = orders[Math.floor(Math.random() * orders.length)];
+            const randomOffset = Math.floor(Math.random() * 50); // Skip up to 50 tracks
+
+            // Use the single random tag
+            const url = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${poolSize}&tags=${encodeURIComponent(randomTag)}&include=musicinfo&audioformat=mp32&order=${randomOrder}&offset=${randomOffset}`;
+            console.log(`   🔗 URL Jamendo (Order: ${randomOrder}, Offset: ${randomOffset}):`, url);
+
+            // Disable caching to prevent stale results
+            const response = await fetch(url, { cache: 'no-store' });
             const data = await response.json();
 
             // Fallback to popular if no results
-            let tracks = data.results || [];
-            if (tracks.length === 0) {
-                console.log('   ⚠️  Nenhuma música encontrada, buscando populares...');
+            let allTracks = data.results || [];
+            if (allTracks.length === 0) {
+                console.log('   ⚠️  Nenhuma música encontrada com a tag, buscando populares (com randomização)...');
+
+                // Also randomize the fallback to avoid always getting the same "top 50"
+                const fallbackOrder = orders[Math.floor(Math.random() * orders.length)];
+                const fallbackOffset = Math.floor(Math.random() * 100); // Larger offset for fallback
+
                 const fallbackResponse = await fetch(
-                    `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${count}&order=popularity_total&include=musicinfo&audioformat=mp32`
+                    `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=${poolSize}&order=${fallbackOrder}&offset=${fallbackOffset}&include=musicinfo&audioformat=mp32`,
+                    { cache: 'no-store' }
                 );
                 const fallbackData = await fallbackResponse.json();
-                tracks = fallbackData.results || [];
+                allTracks = fallbackData.results || [];
             }
+
+            // Shuffle tracks (Fisher-Yates algorithm)
+            for (let i = allTracks.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allTracks[i], allTracks[j]] = [allTracks[j], allTracks[i]];
+            }
+
+            // Select only the needed amount
+            const tracks = allTracks.slice(0, count);
 
             // Save tracks to database (without duplicates)
             console.log(`   💾 Salvando ${tracks.length} músicas na biblioteca...`);

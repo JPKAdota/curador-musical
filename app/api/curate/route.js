@@ -1,219 +1,99 @@
 import { NextResponse } from 'next/server';
 import supabase from '../../../lib/db.js';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Professional AI Analysis Function (Mock - will be replaced with real AI)
-function professionalAIAnalysis(brandData) {
-  const { name } = brandData;
+// Initialize Gemini client
+// Note: We initialize it inside the handler or check for key existence to avoid build errors if key is missing
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
 
-  // Infer brand characteristics from name
-  const nameLower = name.toLowerCase();
+// Real AI Analysis Function using Gemini
+async function generateBrandAnalysis(brandData) {
+  const { name, description = '', sector = '' } = brandData;
 
-  // Detect segment
-  let segment = 'Varejo';
-  let positioning = 'médio';
-  let communication_style = 'informal';
-
-  if (nameLower.includes('cafe') || nameLower.includes('coffee') || nameLower.includes('starbucks')) {
-    segment = 'Cafeteria';
-    positioning = 'premium';
-    communication_style = 'sofisticado';
-  } else if (nameLower.includes('fit') || nameLower.includes('gym') || nameLower.includes('academia')) {
-    segment = 'Academia';
-    positioning = 'médio';
-    communication_style = 'jovem';
-  } else if (nameLower.includes('store') || nameLower.includes('shop') || nameLower.includes('zara') || nameLower.includes('moda')) {
-    segment = 'Varejo de Moda';
-    positioning = 'premium';
-    communication_style = 'sofisticado';
-  } else if (nameLower.includes('rest') || nameLower.includes('bistro') || nameLower.includes('grill')) {
-    segment = 'Gastronomia';
-    positioning = 'premium';
-    communication_style = 'formal';
+  if (!process.env.GOOGLE_API_KEY) {
+    throw new Error("GOOGLE_API_KEY is not defined");
   }
 
-  // Mock analysis (will be replaced with real Gemini API call)
-  const analysis = {
-    brand_profile: `${name} é uma marca ${positioning} no segmento de ${segment}. A identidade da marca transmite ${getEmotionalTone(positioning, communication_style).toLowerCase()}, criando uma experiência única para seus clientes.`,
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-    target_audience_profile: getTargetAudience(segment, positioning),
-
-    emotional_tone: getEmotionalTone(positioning, communication_style),
-
-    ideal_music_style: getMusicStyle(segment, positioning),
-
-    time_variations: {
-      weekday_morning: {
-        description: "Segunda a sexta, manhã (6h-12h)",
-        bpm: getBPMRange(segment, 'morning'),
-        energy: "Média-Alta",
-        genres: getGenres(segment, 'morning', positioning)
+  const prompt = `
+    Atue como um especialista em Branding, Marketing Sensorial e Curadoria Musical.
+    Analise a marca abaixo e gere um perfil completo de identidade musical e sensorial.
+    
+    Marca: ${name}
+    Setor/Descrição: ${sector} ${description}
+    
+    Retorne APENAS um objeto JSON válido com a seguinte estrutura exata (sem markdown, sem explicações adicionais, sem blocos de código \`\`\`json):
+    {
+      "brand_profile": "Descrição do perfil da marca, arquétipo e posicionamento",
+      "target_audience_profile": "Descrição detalhada do público-alvo",
+      "emotional_tone": "Tom emocional (ex: Sofisticado & Exclusivo)",
+      "ideal_music_style": "Estilo musical ideal (ex: Jazz, Pop, Lofi)",
+      "business_type": "Tipo de negócio inferido (ex: Cafeteria, Academia)",
+      "vibe": "Vibe geral (ex: Energética, Relaxante)",
+      "time_variations": {
+        "weekday_morning": { "description": "...", "bpm": { "min": 0, "max": 0 }, "energy": "...", "genres": ["..."] },
+        "weekday_afternoon": { "description": "...", "bpm": { "min": 0, "max": 0 }, "energy": "...", "genres": ["..."] },
+        "weekday_evening": { "description": "...", "bpm": { "min": 0, "max": 0 }, "energy": "...", "genres": ["..."] },
+        "weekend": { "description": "...", "bpm": { "min": 0, "max": 0 }, "energy": "...", "genres": ["..."] }
       },
-      weekday_afternoon: {
-        description: "Segunda a sexta, tarde (12h-18h)",
-        bpm: getBPMRange(segment, 'afternoon'),
-        energy: "Alta",
-        genres: getGenres(segment, 'afternoon', positioning)
+      "recommended_genres": ["gênero1", "gênero2", "gênero3", "gênero4", "gênero5", "gênero6"],
+      "avoid": {
+        "musical_styles": ["estilo a evitar 1", "estilo a evitar 2"],
+        "behaviors": ["comportamento a evitar 1"]
       },
-      weekday_evening: {
-        description: "Segunda a sexta, noite (18h-22h)",
-        bpm: getBPMRange(segment, 'evening'),
-        energy: "Média",
-        genres: getGenres(segment, 'evening', positioning)
-      },
-      weekend: {
-        description: "Fim de semana",
-        bpm: { min: 95, max: 125 },
-        energy: "Variada",
-        genres: getGenres(segment, 'weekend', positioning)
-      }
-    },
-
-    recommended_genres: getGenres(segment, 'all', positioning),
-
-    avoid: getAvoidList(segment, positioning),
-
-    voice_type: getVoiceType(positioning, communication_style),
-
-    thematic_playlists: [
-      {
-        name: `${name} - Energia Matinal`,
-        description: "Playlist para começar o dia com energia positiva",
-        tags: getGenres(segment, 'morning', positioning).slice(0, 4)
-      },
-      {
-        name: `${name} - Foco e Produtividade`,
-        description: "Músicas para manter o ambiente produtivo",
-        tags: getGenres(segment, 'afternoon', positioning).slice(0, 4)
-      },
-      {
-        name: `${name} - Relaxamento`,
-        description: "Playlist para momentos de descontração",
-        tags: getGenres(segment, 'evening', positioning).slice(0, 4)
-      }
-    ],
-
-    // For compatibility with existing system
-    business_type: segment,
-    vibe: getEmotionalTone(positioning, communication_style),
-    suggested_tags: getGenres(segment, 'all', positioning).slice(0, 6),
-    bpm_breakdown: {
-      morning: {
-        min: getBPMRange(segment, 'morning').min,
-        max: getBPMRange(segment, 'morning').max,
-        genres: getGenres(segment, 'morning', positioning)
-      },
-      afternoon: {
-        min: getBPMRange(segment, 'afternoon').min,
-        max: getBPMRange(segment, 'afternoon').max,
-        genres: getGenres(segment, 'afternoon', positioning)
-      },
-      evening: {
-        min: getBPMRange(segment, 'evening').min,
-        max: getBPMRange(segment, 'evening').max,
-        genres: getGenres(segment, 'evening', positioning)
+      "voice_type": "Descrição da voz ideal para locução",
+      "thematic_playlists": [
+        { "name": "Nome da Playlist 1", "description": "Descrição", "tags": ["tag1", "tag2"] },
+        { "name": "Nome da Playlist 2", "description": "Descrição", "tags": ["tag1", "tag2"] },
+        { "name": "Nome da Playlist 3", "description": "Descrição", "tags": ["tag1", "tag2"] }
+      ],
+      "suggested_tags": ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6"],
+      "bpm_breakdown": {
+        "morning": { "min": 0, "max": 0, "genres": ["..."] },
+        "afternoon": { "min": 0, "max": 0, "genres": ["..."] },
+        "evening": { "min": 0, "max": 0, "genres": ["..."] }
       }
     }
-  };
+  `;
 
-  return analysis;
-}
+  try {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    let text = response.text();
 
-// Helper functions for mock analysis
-function getTargetAudience(segment, positioning) {
-  const audiences = {
-    'Cafeteria-premium': 'Jovens profissionais 25-40 anos, freelancers e amantes de café especial',
-    'Cafeteria-médio': 'Público geral 20-50 anos, estudantes e trabalhadores',
-    'Academia-premium': 'Atletas e entusiastas fitness 25-45 anos, classe A/B',
-    'Academia-médio': 'Pessoas ativas 18-45 anos buscando saúde e bem-estar',
-    'Varejo de Moda-premium': 'Fashionistas 25-45 anos, classe A/B, alto poder aquisitivo',
-    'Varejo de Moda-médio': 'Público moderno 20-40 anos, classe B/C',
-    'Gastronomia-premium': 'Casais e famílias 30-60 anos, apreciadores de gastronomia',
-    'Gastronomia-médio': 'Público geral 25-55 anos buscando experiências gastronômicas'
-  };
-  const key = `${segment}-${positioning}`;
-  return audiences[key] || 'Público geral diversificado';
-}
+    // Clean up markdown code blocks if present
+    text = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
-function getEmotionalTone(positioning, style) {
-  const tones = {
-    'premium-formal': 'Sofisticado & Exclusivo',
-    'premium-sofisticado': 'Elegante & Refinado',
-    'médio-informal': 'Acolhedor & Descontraído',
-    'médio-jovem': 'Moderno & Dinâmico',
-    'popular-informal': 'Alegre & Acessível',
-    'popular-jovem': 'Vibrante & Energético'
-  };
-  return tones[`${positioning}-${style}`] || 'Equilibrado & Profissional';
-}
-
-function getMusicStyle(segment, positioning) {
-  const styles = {
-    'cafeteria-premium': 'Jazz suave, Bossa Nova, Acoustic Indie',
-    'cafeteria-médio': 'Indie Pop, Acoustic, Lofi',
-    'academia-premium': 'Electronic Dance, Deep House, Motivational',
-    'academia-médio': 'Pop Rock, Electronic, Workout',
-    'varejo-premium': 'Lounge, Nu Jazz, Chill House',
-    'varejo-médio': 'Pop, Indie, Modern Hits'
-  };
-  const key = `${segment.toLowerCase()}-${positioning}`;
-  return styles[key] || 'Eclectic Mix adaptado ao público';
-}
-
-function getBPMRange(segment, period) {
-  const ranges = {
-    'cafeteria': { morning: { min: 80, max: 110 }, afternoon: { min: 90, max: 120 }, evening: { min: 70, max: 100 } },
-    'academia': { morning: { min: 120, max: 140 }, afternoon: { min: 130, max: 150 }, evening: { min: 110, max: 130 } },
-    'varejo': { morning: { min: 100, max: 120 }, afternoon: { min: 110, max: 130 }, evening: { min: 95, max: 115 } },
-    'restaurante': { morning: { min: 90, max: 110 }, afternoon: { min: 85, max: 105 }, evening: { min: 70, max: 95 } }
-  };
-
-  const segmentKey = Object.keys(ranges).find(key => segment.toLowerCase().includes(key)) || 'varejo';
-  return ranges[segmentKey][period] || { min: 90, max: 120 };
-}
-
-function getGenres(segment, period, positioning) {
-  const genreMap = {
-    'cafeteria': {
-      morning: ['Acoustic', 'Jazz', 'Bossa Nova', 'Indie Folk'],
-      afternoon: ['Indie Pop', 'Folk', 'Chill', 'Lofi'],
-      evening: ['Jazz', 'Ambient', 'Piano', 'Smooth'],
-      weekend: ['Bossa Nova', 'Acoustic', 'Indie', 'Chill'],
-      all: ['Acoustic', 'Jazz', 'Bossa Nova', 'Indie', 'Lofi', 'Chill']
-    },
-    'academia': {
-      morning: ['Electronic', 'Rock', 'Energy', 'Workout'],
-      afternoon: ['EDM', 'Hard Rock', 'Motivation', 'Upbeat'],
-      evening: ['Pop Rock', 'Electronic', 'Chill House', 'Downtempo'],
-      weekend: ['EDM', 'Electronic', 'Dance', 'Energy'],
-      all: ['Electronic', 'Rock', 'EDM', 'Workout', 'Energy', 'Motivation']
-    },
-    'varejo': {
-      morning: ['Pop', 'Indie Pop', 'Modern', 'Upbeat'],
-      afternoon: ['Deep House', 'Nu Disco', 'Fashion', 'Modern'],
-      evening: ['Lounge', 'Chill House', 'Downtempo', 'Ambient'],
-      weekend: ['Pop', 'Dance', 'Modern Hits', 'Upbeat'],
-      all: ['Pop', 'Indie', 'Deep House', 'Lounge', 'Modern', 'Chill']
-    }
-  };
-
-  const segmentKey = Object.keys(genreMap).find(key => segment.toLowerCase().includes(key)) || 'varejo';
-  return genreMap[segmentKey][period] || genreMap['varejo']['all'];
-}
-
-function getAvoidList(segment, positioning) {
-  return {
-    musical_styles: ['Heavy Metal', 'Música muito lenta ou melancólica', 'Letras explícitas ou controversas'],
-    behaviors: ['Volume muito alto', 'Mudanças bruscas de ritmo', 'Silêncios prolongados']
-  };
-}
-
-function getVoiceType(positioning, style) {
-  const voices = {
-    'premium': 'Voz feminina ou masculina, tom médio-grave, dicção clara, ritmo pausado e sofisticado',
-    'médio': 'Voz neutra e amigável, tom médio, ritmo natural e acolhedor',
-    'popular': 'Voz jovem e energética, tom médio-agudo, ritmo dinâmico e descontraído'
-  };
-  return voices[positioning] || voices['médio'];
+    return JSON.parse(text);
+  } catch (error) {
+    console.error("Gemini Analysis Error:", error);
+    // Fallback to a basic generic structure if AI fails
+    return {
+      brand_profile: `Análise automática indisponível para ${name}. (Erro na IA)`,
+      target_audience_profile: "Público geral",
+      emotional_tone: "Neutro",
+      ideal_music_style: "Pop Variado",
+      business_type: "Varejo",
+      vibe: "Agradável",
+      time_variations: {
+        weekday_morning: { description: "Manhã", bpm: { min: 80, max: 100 }, energy: "Média", genres: ["Pop"] },
+        weekday_afternoon: { description: "Tarde", bpm: { min: 90, max: 110 }, energy: "Alta", genres: ["Pop"] },
+        weekday_evening: { description: "Noite", bpm: { min: 70, max: 90 }, energy: "Baixa", genres: ["Pop"] },
+        weekend: { description: "Fim de semana", bpm: { min: 90, max: 120 }, energy: "Alta", genres: ["Pop"] }
+      },
+      recommended_genres: ["Pop", "Lounge"],
+      avoid: { musical_styles: ["Heavy Metal"], behaviors: ["Volume excessivo"] },
+      voice_type: "Neutra",
+      thematic_playlists: [],
+      suggested_tags: ["Pop", "Hits"],
+      bpm_breakdown: {
+        morning: { min: 80, max: 100, genres: ["Pop"] },
+        afternoon: { min: 90, max: 110, genres: ["Pop"] },
+        evening: { min: 70, max: 90, genres: ["Pop"] }
+      }
+    };
+  }
 }
 
 // API Route
@@ -226,8 +106,8 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Brand data required' }, { status: 400 });
     }
 
-    // Generate professional analysis
-    const analysis = professionalAIAnalysis(brandData);
+    // Generate professional analysis using Gemini
+    const analysis = await generateBrandAnalysis(brandData);
 
     // Save analysis to database
     if (brandId) {
@@ -277,7 +157,7 @@ export async function POST(request) {
   }
 }
 
-// Keep GET for backward compatibility
+// Keep GET for backward compatibility (Simple Mock)
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const company = searchParams.get('company');
@@ -286,20 +166,21 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Company name required' }, { status: 400 });
   }
 
-  // Simple mock for GET requests
-  const mockData = { name: company, segment: 'Varejo', positioning: 'médio', communication_style: 'informal', brand_colors: 'Azul' };
-  const analysis = professionalAIAnalysis(mockData);
-
+  // Simple static mock for GET requests to avoid API costs on simple fetches
   return NextResponse.json({
     company,
     analysis: {
-      specialist_summary: analysis.brand_profile,
-      target_audience: analysis.target_audience_profile,
-      vibe: analysis.vibe,
-      business_type: analysis.business_type,
-      suggested_tags: analysis.suggested_tags,
+      specialist_summary: `Análise demonstrativa para ${company}`,
+      target_audience_profile: "Público Geral",
+      vibe: "Acolhedora",
+      business_type: "Varejo",
+      suggested_tags: ["Pop", "Lounge", "Acoustic"],
       time_distribution: { morning: 33, afternoon: 34, evening: 33 },
-      bpm_breakdown: analysis.bpm_breakdown
+      bpm_breakdown: {
+        morning: { min: 80, max: 100, genres: ["Acoustic"] },
+        afternoon: { min: 100, max: 120, genres: ["Pop"] },
+        evening: { min: 70, max: 90, genres: ["Lounge"] }
+      }
     },
     status: "waiting_approval"
   });
