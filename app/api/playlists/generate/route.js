@@ -1,11 +1,6 @@
 import { NextResponse } from 'next/server';
 import supabase from '../../../../lib/db.js';
 
-function log(message, data = null) {
-    // Also log to console for development
-    console.log(message, data || '');
-}
-
 export async function POST(request) {
     try {
         const { brandId } = await request.json();
@@ -25,8 +20,8 @@ export async function POST(request) {
             return NextResponse.json({ error: 'Brand not found' }, { status: 404 });
         }
 
-        log('🎵 Gerando playlists para:', brand.name);
-        log('📊 Dados da brand:', { track_count: brand.track_count, bpm_ranges: brand.bpm_ranges, time_distribution: brand.time_distribution });
+        console.log('🎵 Gerando playlists para:', brand.name);
+        console.log('📊 Dados da brand:', { track_count: brand.track_count, bpm_ranges: brand.bpm_ranges, time_distribution: brand.time_distribution });
 
         const { track_count, bpm_ranges, genres, time_distribution } = brand;
 
@@ -37,25 +32,25 @@ export async function POST(request) {
             evening: Math.floor(track_count * (time_distribution.evening / 100))
         };
 
-        log('📈 Músicas por período:', tracksPerPeriod);
+        console.log('📈 Músicas por período:', tracksPerPeriod);
 
         const CLIENT_ID = process.env.JAMENDO_CLIENT_ID;
-        log('🔑 Jamendo Client ID:', CLIENT_ID ? 'Configurado ✅' : 'NÃO CONFIGURADO ❌');
+        console.log('🔑 Jamendo Client ID:', CLIENT_ID ? 'Configurado ✅' : 'NÃO CONFIGURADO ❌');
 
         const playlists = [];
 
         // Generate playlist for each period
         for (const [period, count] of Object.entries(tracksPerPeriod)) {
-            log(`\n⏰ Gerando playlist para: ${period} (${count} músicas)`);
+            console.log(`\n⏰ Gerando playlist para: ${period} (${count} músicas)`);
 
             const periodData = bpm_ranges[period];
-            log('   Dados do período:', periodData);
+            console.log('   Dados do período:', periodData);
 
             const tagsList = periodData.genres;
             // Pick ONE random tag to increase chance of results
             const randomTag = tagsList[Math.floor(Math.random() * tagsList.length)];
-            log('   Tags disponíveis:', tagsList);
-            log('   Tag selecionada para busca:', randomTag);
+            console.log('   Tags disponíveis:', tagsList);
+            console.log('   Tag selecionada para busca:', randomTag);
 
             // Fetch from Jamendo
             const poolSize = Math.max(count * 5, 50);
@@ -157,53 +152,71 @@ export async function POST(request) {
             // Select only the needed amount
             const tracks = allTracks.slice(0, count);
 
-            // Save tracks to database (without duplicates)
-            log(`   💾 Salvando ${tracks.length} músicas na biblioteca...`);
+            // Save tracks to database (Batch Operation)
+            console.log(`   💾 Processando ${tracks.length} músicas...`);
+
+            const jamendoIds = tracks.map(t => String(t.id));
+
+            // 1. Batch fetch existing tracks
+            const { data: existingTracks, error: fetchError } = await supabase
+                .from('tracks')
+                .select('id, jamendo_id')
+                .in('jamendo_id', jamendoIds);
+
+            if (fetchError) {
+                console.error('Error fetching existing tracks:', fetchError);
+                throw fetchError;
+            }
+
+            const existingTrackMap = new Map(existingTracks?.map(t => [t.jamendo_id, t.id]));
+            const newTracksToInsert = [];
             const trackIds = [];
 
+            // 2. Separate existing vs new
             for (const item of tracks) {
-                // Check if track already exists by jamendo_id
-                const { data: existingTrack } = await supabase
-                    .from('tracks')
-                    .select('id')
-                    .eq('jamendo_id', String(item.id))
-                    .single();
-
-                if (existingTrack) {
-                    log(`   ♻️  Música já existe: ${item.name} (ID: ${existingTrack.id})`);
-                    trackIds.push(existingTrack.id);
+                const jamendoId = String(item.id);
+                if (existingTrackMap.has(jamendoId)) {
+                    trackIds.push(existingTrackMap.get(jamendoId));
+                    console.log(`   ♻️  Música já existe: ${item.name} (ID: ${existingTrackMap.get(jamendoId)})`);
                 } else {
-                    // Insert new track
-                    const { data: newTrack, error: trackError } = await supabase
-                        .from('tracks')
-                        .insert({
-                            jamendo_id: String(item.id),
-                            title: item.name,
-                            artist: item.artist_name,
-                            genre: item.musicinfo?.tags?.genres?.[0] || 'Music',
-                            url: item.audio,
-                            duration: item.duration,
-                            image: item.image,
-                            bpm: Math.floor(Math.random() * (periodData.max - periodData.min) + periodData.min),
-                            source: 'jamendo',
-                            license: 'Creative Commons',
-                            tags: item.musicinfo?.tags?.vartags || [],
-                            time_period: period
-                        })
-                        .select('id')
-                        .single();
+                    newTracksToInsert.push({
+                        jamendo_id: jamendoId,
+                        title: item.name,
+                        artist: item.artist_name,
+                        genre: item.musicinfo?.tags?.genres?.[0] || 'Music',
+                        url: item.audio,
+                        duration: item.duration,
+                        image: item.image,
+                        bpm: Math.floor(Math.random() * (periodData.max - periodData.min) + periodData.min),
+                        source: 'jamendo',
+                        license: 'Creative Commons',
+                        tags: item.musicinfo?.tags?.vartags || [],
+                        time_period: period
+                    });
+                }
+            }
 
-                    if (trackError) {
-                        console.error(`   ❌ Erro ao salvar música: ${trackError.message}`);
-                    } else {
-                        log(`   ✅ Nova música salva: ${item.name} (ID: ${newTrack.id})`);
-                        trackIds.push(newTrack.id);
-                    }
+            // 3. Batch insert new tracks
+            if (newTracksToInsert.length > 0) {
+                console.log(`   💾 Inserindo ${newTracksToInsert.length} novas músicas...`);
+                const { data: insertedTracks, error: insertError } = await supabase
+                    .from('tracks')
+                    .insert(newTracksToInsert)
+                    .select('id, title');
+
+                if (insertError) {
+                    console.error('Error batch inserting tracks:', insertError);
+                    throw insertError;
+                }
+
+                for (const track of insertedTracks) {
+                    console.log(`   ✅ Nova música salva: ${track.title} (ID: ${track.id})`);
+                    trackIds.push(track.id);
                 }
             }
 
             // Save playlist to database with track IDs
-            log(`   💾 Salvando playlist no banco com ${trackIds.length} músicas...`);
+            console.log(`   💾 Salvando playlist no banco com ${trackIds.length} músicas...`);
             const { data: savedData, error: playlistError } = await supabase
                 .from('playlists')
                 .insert({
@@ -219,7 +232,7 @@ export async function POST(request) {
             if (playlistError) {
                 console.error('   ❌ Erro ao salvar playlist:', playlistError);
             } else {
-                log(`   ✅ Playlist salva com sucesso! ID: ${savedData?.[0]?.id}`);
+                console.log(`   ✅ Playlist salva com sucesso! ID: ${savedData?.[0]?.id}`);
             }
 
             // Fetch tracks for response
@@ -246,7 +259,7 @@ export async function POST(request) {
         return NextResponse.json({ playlists });
     } catch (error) {
         console.error('Error generating playlists:', error);
-        log('Error generating playlists:', error.message);
+        console.log('Error generating playlists:', error.message);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
